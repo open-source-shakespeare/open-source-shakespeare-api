@@ -1,26 +1,18 @@
-import { Character } from './models/Character';
-import { sequelize } from './util/database';
-
-
-async function getCharacters(): Promise<Character[]> {
-  const result = await Character.findAll();
-  return result;
-}
-
-async function getCharacterById(id: String): Promise<Character[]> {
-  const result = await Character.findAll({
-    where: {
-      CharID: id
-    }
-  });
-  return result;
-}
-
+import {getCharacters, getCharacterById} from "./actions/character-actions"
 
 (async () => {
   try {
     const text = await getCharacterById("1apparition-mac");
-    console.log(text[0].dataValues);
+    console.log(text);
+  } catch (e) {
+    console.error(e);
+  }
+})();
+
+(async () => {
+  try {
+    const text = await getCharacters();
+    console.log(text[1]);
   } catch (e) {
     console.error(e);
   }

@@ -4,7 +4,6 @@
   "description": "A restful API version of the Open Source Shakespeare project. Database courtesy of OSS. Please support them at https://www.opensourceshakespeare.org/",
   "main": "./src/app.js",
   "scripts": {
-    "test": "npm test",
     "start": "npx ts-node ./src/app.ts",
     "start:dev": "npx nodemon"
   },
