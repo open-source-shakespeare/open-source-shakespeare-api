@@ -1,15 +1,16 @@
-import Character from "../models/character";
+import {Character, CharacterId, CharacterPlain } from "../models/Character";
+import { Optional } from "../util/utils"
 
-export async function getCharacters(): Promise<Character[]> {
+export async function getCharacters(): Promise<Optional<CharacterPlain[]>> {
   const characters = await Character.findAll();
-  return characters.map(c => c.get({plain: true}))
+  return characters.map(c => c.format());
 }
 
-export async function getCharacterById(id: String): Promise<Character> {
-  const [character] = await Character.findAll({
+export async function getCharacterById(id: CharacterId): Promise<Optional<CharacterPlain>> {
+  const character = await Character.findOne({
     where: {
       CharID: id
     }
   });
-  return character.get({plain: true});
+  return character ? character.format() : null;
 }
