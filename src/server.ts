@@ -1,13 +1,22 @@
 import express from "express";
-import morgan from "morgan";
 import { charactersRouter } from "./routes/characters-routes";
-const app = express();
+import { errorHandler } from "./middleware/error-handler";
+import { logger } from "./middleware/logger";
+import dotenv from "dotenv";
+import { NotFoundError } from "./util/errors";
 
-const logger = morgan(":method :url :status :response-time ms - :res[content-length]");
+dotenv.config();
+
+const app = express();
 
 app.use(logger);
 app.use("/characters", charactersRouter);
+app.use("*", (_, __, next) => {
+  next(new NotFoundError("The requested resource could not be found."));
+});
+app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
