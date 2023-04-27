@@ -37,12 +37,13 @@ export function initModels(sequelize: Sequelize) {
   const Quotation = _Quotation.initModel(sequelize);
   const Work = _Work.initModel(sequelize);
 
-  return {
-    Chapter: Chapter,
-    Character: Character,
-    Genre: Genre,
-    Paragraph: Paragraph,
-    Quotation: Quotation,
-    Work: Work,
-  };
+  const models = { Chapter, Character, Genre, Paragraph, Quotation, Work };
+
+  for (const model of Object.values(models)) {
+    if ("associate" in model) {
+      model.associate(models);
+    }
+  }
+
+  return models;
 }
