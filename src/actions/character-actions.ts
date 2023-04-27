@@ -28,7 +28,7 @@ export async function getCharacterById(id: CharacterId): Promise<CharacterPlain>
   }
 }
 
-export async function getCharacterByName(name: string): Promise<CharacterPlain[]> {
+export async function getCharactersByName(name: string): Promise<CharacterPlain[]> {
   try {
     const characters = await Character.findAll({
       where: {
