@@ -1,4 +1,3 @@
-import { Optional } from "../util/utils";
 import { Op } from "sequelize";
 import { models } from "../database";
 import { CharacterPlain, CharacterId } from "../models/Character";

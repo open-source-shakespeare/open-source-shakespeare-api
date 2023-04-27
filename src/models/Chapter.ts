@@ -1,5 +1,4 @@
 import { Sequelize, DataTypes, Model, Optional } from "sequelize";
-import { Work } from "./Work";
 
 export interface ChapterAttributes {
   WorkID: string;
@@ -36,10 +35,6 @@ export class Chapter extends Model<ChapterAttributes, ChapterCreationAttributes>
       {
         WorkID: {
           type: DataTypes.STRING(255),
-          references: {
-            model: Work,
-            key: "WorkID",
-          },
           allowNull: false,
           defaultValue: "",
         },
