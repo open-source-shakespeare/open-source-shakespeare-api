@@ -28,19 +28,19 @@ export async function getCharacterById(id: CharacterId): Promise<CharacterPlain>
   }
 }
 
-export async function getCharacterByName(name: string): Promise<CharacterPlain> {
+export async function getCharacterByName(name: string): Promise<CharacterPlain[]> {
   try {
-    const character = await Character.findOne({
+    const characters = await Character.findAll({
       where: {
         CharName: {
-          [Op.like]: name,
+          [Op.like]: `%${name}%`,
         },
       },
     });
-    if (!character) {
+    if (characters.length === 0) {
       throw new NotFoundError("Character not found");
     }
-    return character.format();
+    return characters.map((c) => c.format());
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);
