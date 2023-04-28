@@ -1,26 +1,21 @@
 import express from "express";
 
-import dotenv from "dotenv";
-import { logger } from "../middleware/logger";
-import { charactersRouter } from "./characters-routes";
-import { chaptersRouter } from "./chapters-routes";
-import { genresRouter } from "./genres-routes";
+import { characterRouter } from "./character-routes";
+import { chapterRouter } from "./chapter-routes";
+import { genreRouter } from "./genre-routes";
 import { NotFoundError } from "../util/errors";
-import { errorHandler } from "../middleware/error-handler";
-import { paragraphsRouter } from "./paragraphs-routes";
-
-dotenv.config();
+import { paragraphRouter } from "./paragraph-routes";
+import { quotationRouter } from "./quotation-routes";
 
 const router = express.Router();
 
-router.use(logger);
-router.use("/characters", charactersRouter);
-router.use("/chapters", chaptersRouter);
-router.use("/genres", genresRouter);
-router.use("/paragraphs", paragraphsRouter);
+router.use("/characters", characterRouter);
+router.use("/chapters", chapterRouter);
+router.use("/genres", genreRouter);
+router.use("/paragraphs", paragraphRouter);
+router.use("/quotations", quotationRouter);
 router.use("*", (_, __, next) => {
   next(new NotFoundError("The requested resource could not be found."));
 });
-router.use(errorHandler);
 
 export { router };
