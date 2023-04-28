@@ -71,5 +71,5 @@ The base endpoint is currently set at:
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/) - See [licence](https://choosealicense.com/licenses/mit/) file for more details
+[MIT](https://choosealicense.com/licenses/mit/) - See [licence](https://github.com/mghmay/open-source-shakespeare-api/blob/main/LICENSE) file for more details
 
