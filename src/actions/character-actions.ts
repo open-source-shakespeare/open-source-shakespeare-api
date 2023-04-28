@@ -23,8 +23,12 @@ export async function getCharacterById(id: CharacterId): Promise<CharacterPlain>
     }
     return character.format();
   } catch (e) {
-    const errorMessage = e instanceof Error ? e.message : "Unknown database error";
-    throw new DatabaseError(errorMessage);
+    if (e instanceof NotFoundError) {
+      throw e;
+    } else {
+      const errorMessage = e instanceof Error ? e.message : "Unknown database error";
+      throw new DatabaseError(errorMessage);
+    }
   }
 }
 
@@ -42,7 +46,11 @@ export async function getCharactersByName(name: string): Promise<CharacterPlain[
     }
     return characters.map((c) => c.format());
   } catch (e) {
-    const errorMessage = e instanceof Error ? e.message : "Unknown database error";
-    throw new DatabaseError(errorMessage);
+    if (e instanceof NotFoundError) {
+      throw e;
+    } else {
+      const errorMessage = e instanceof Error ? e.message : "Unknown database error";
+      throw new DatabaseError(errorMessage);
+    }
   }
 }

@@ -1,11 +1,17 @@
 import { Request, Response, NextFunction } from "express";
-import { NotFoundError, DatabaseError } from "../util/errors";
 
-export function errorHandler(err: Error, _: Request, res: Response, next: NextFunction) {
-  if (err instanceof NotFoundError) {
-    res.status(404).json({ error: err.message });
-  } else {
-    const errorMessage = err instanceof DatabaseError ? err.message : "Fie, there is no such man; it is impossible.";
-    res.status(500).json({ error: errorMessage });
+export function errorHandler(e: Error, _: Request, res: Response, next: NextFunction) {
+  switch (e.constructor.name) {
+    case "BadRequestError":
+      res.status(400).json({ error: e.message });
+      break;
+    case "NotFoundError":
+      res.status(404).json({ error: e.message });
+      break;
+    case "DatabaseError":
+      res.status(500).json({ error: e.message });
+      break;
+    default:
+      res.status(500).json({ error: "Fie, there is no such man; it is impossible." });
   }
 }
