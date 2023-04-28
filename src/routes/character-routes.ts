@@ -7,4 +7,4 @@ router.get("/", handleGetCharacters);
 router.get("/id/:id", handleGetCharacterById);
 router.get("/name/:name", handleGetCharactersByName);
 
-export { router as charactersRouter };
+export { router as characterRouter };

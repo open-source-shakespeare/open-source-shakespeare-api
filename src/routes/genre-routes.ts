@@ -7,4 +7,4 @@ router.get("/", handleGetGenres);
 router.get("/id/:id", handleGetGenreById);
 router.get("/name/:name", handleGetGenreByName);
 
-export { router as genresRouter };
+export { router as genreRouter };

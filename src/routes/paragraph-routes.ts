@@ -6,4 +6,4 @@ const router = express.Router();
 router.get("/", handleGetParagraphs);
 router.get("/id/:id", handleGetParagraphById);
 
-export { router as paragraphsRouter };
+export { router as paragraphRouter };
