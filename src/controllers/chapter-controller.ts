@@ -14,7 +14,6 @@ export async function handleGetChapters(_: Request, res: Response, next: NextFun
 export async function handleGetChapterById(req: Request, res: Response, next: NextFunction) {
   try {
     const id = parseInt(req.params.id);
-    console.log(id);
     if (isNaN(id)) throw new BadRequestError("Please enter a number");
     const chapter = await getChapterById(id);
     res.json(chapter);
