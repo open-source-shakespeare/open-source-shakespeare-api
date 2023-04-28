@@ -7,6 +7,7 @@ import { chaptersRouter } from "./chapters-routes";
 import { genresRouter } from "./genres-routes";
 import { NotFoundError } from "../util/errors";
 import { errorHandler } from "../middleware/error-handler";
+import { paragraphsRouter } from "./paragraphs-routes";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ router.use(logger);
 router.use("/characters", charactersRouter);
 router.use("/chapters", chaptersRouter);
 router.use("/genres", genresRouter);
+router.use("/paragraphs", paragraphsRouter);
 router.use("*", (_, __, next) => {
   next(new NotFoundError("The requested resource could not be found."));
 });
