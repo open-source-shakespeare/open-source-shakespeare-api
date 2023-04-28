@@ -8,7 +8,7 @@ const { Genre } = models;
 export async function getGenres(): Promise<GenrePlain[]> {
   try {
     const genres = await Genre.findAll();
-    return genres.map((c) => c.format());
+    return genres.map((_) => _.format());
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);

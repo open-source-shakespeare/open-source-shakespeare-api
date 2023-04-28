@@ -7,7 +7,7 @@ const { Chapter } = models;
 export async function getChapters(): Promise<ChapterPlain[]> {
   try {
     const chapters = await Chapter.findAll();
-    return chapters.map((c) => c.format());
+    return chapters.map((_) => _.format());
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);

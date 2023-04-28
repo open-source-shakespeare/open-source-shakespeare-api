@@ -8,7 +8,7 @@ const { Character } = models;
 export async function getCharacters(): Promise<CharacterPlain[]> {
   try {
     const characters = await Character.findAll();
-    return characters.map((c) => c.format());
+    return characters.map((_) => _.format());
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);
@@ -44,7 +44,7 @@ export async function getCharactersByName(name: string): Promise<CharacterPlain[
     if (characters.length === 0) {
       throw new NotFoundError("Character not found");
     }
-    return characters.map((c) => c.format());
+    return characters.map((_) => _.format());
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
