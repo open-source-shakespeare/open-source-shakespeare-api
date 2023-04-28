@@ -11,8 +11,17 @@ import { Quotation as _Quotation } from "./Quotation";
 import type { QuotationAttributes, QuotationCreationAttributes } from "./Quotation";
 import { Work as _Work } from "./Work";
 import type { WorkAttributes, WorkCreationAttributes } from "./Work";
+import { WordForm as _WordForm } from "./WordForm";
 
-export { _Chapter as Chapter, _Character as Character, _Genre as Genre, _Paragraph as Paragraph, _Quotation as Quotation, _Work as Work };
+export {
+  _Chapter as Chapter,
+  _Character as Character,
+  _Genre as Genre,
+  _Paragraph as Paragraph,
+  _Quotation as Quotation,
+  _Work as Work,
+  _WordForm as WordForm,
+};
 
 export type {
   ChapterAttributes,
@@ -36,8 +45,9 @@ export function initModels(sequelize: Sequelize) {
   const Paragraph = _Paragraph.initModel(sequelize);
   const Quotation = _Quotation.initModel(sequelize);
   const Work = _Work.initModel(sequelize);
+  const WordForm = _WordForm.initModel(sequelize);
 
-  const models = { Chapter, Character, Genre, Paragraph, Quotation, Work };
+  const models = { Chapter, Character, Genre, Paragraph, Quotation, Work, WordForm };
 
   for (const model of Object.values(models)) {
     if ("associate" in model) {
