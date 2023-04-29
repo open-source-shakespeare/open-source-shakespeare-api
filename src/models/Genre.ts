@@ -18,6 +18,13 @@ export class Genre extends Model<GenreAttributes, GenreCreationAttributes> imple
   GenreType!: string;
   GenreName!: string;
 
+  static associate(models: any): void {
+    this.hasMany(models.Work, {
+      foreignKey: "GenreType",
+      as: "works",
+    });
+  }
+
   static initModel(sequelize: Sequelize.Sequelize): typeof Genre {
     return Genre.init(
       {
@@ -26,6 +33,10 @@ export class Genre extends Model<GenreAttributes, GenreCreationAttributes> imple
           allowNull: false,
           defaultValue: "",
           primaryKey: true,
+          references: {
+            model: "Work",
+            key: "GenreType",
+          },
         },
         GenreName: {
           type: DataTypes.STRING(255),

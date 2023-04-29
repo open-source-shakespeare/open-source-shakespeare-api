@@ -49,6 +49,13 @@ export class Paragraph extends Model<ParagraphAttributes, ParagraphCreationAttri
   CharCount!: number;
   WordCount!: number;
 
+  static associate(models: any): void {
+    this.belongsTo(models.Work, {
+      foreignKey: "WorkID",
+      as: "work",
+    });
+  }
+
   static initModel(sequelize: Sequelize.Sequelize): typeof Paragraph {
     return Paragraph.init(
       {

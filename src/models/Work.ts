@@ -27,6 +27,9 @@ export type WorkOptionalAttributes =
   | "TotalWords"
   | "TotalParagraphs";
 export type WorkCreationAttributes = Optional<WorkAttributes, WorkOptionalAttributes>;
+export type WorkPlain = {
+  [K in keyof WorkAttributes]: WorkAttributes[K];
+};
 
 export class Work extends Model<WorkAttributes, WorkCreationAttributes> implements WorkAttributes {
   WorkID!: string;
@@ -44,6 +47,14 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
     this.hasMany(models.Chapter, {
       foreignKey: "WorkID",
       as: "chapters",
+    });
+    this.hasMany(models.Paragraph, {
+      foreignKey: "WorkID",
+      as: "paragraphs",
+    });
+    this.belongsTo(models.Genre, {
+      foreignKey: "GenreType",
+      as: "genre",
     });
   }
 
@@ -79,6 +90,10 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
           type: DataTypes.STRING(255),
           allowNull: false,
           defaultValue: "",
+          references: {
+            model: "Genre",
+            key: "GenreType",
+          },
         },
         Notes: {
           type: DataTypes.BLOB,
@@ -112,5 +127,8 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
         ],
       }
     );
+  }
+  format(): WorkPlain {
+    return { ...this.get() };
   }
 }
