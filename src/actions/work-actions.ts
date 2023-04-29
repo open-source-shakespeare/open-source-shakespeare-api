@@ -35,37 +35,6 @@ export async function getWorkOutlineById(id: WorkId): Promise<WorkPlain> {
   }
 }
 
-export async function getChaptersByWorkId(workId: WorkId): Promise<WorkPlain[]> {
-  try {
-    const chapters = await Work.findAll({
-      include: [
-        {
-          model: Chapter,
-          as: "Chapters",
-          where: Chapter
-            ? {
-                WorkId: {
-                  [Op.like]: `%${workId}%`,
-                },
-              }
-            : undefined,
-        },
-      ],
-    });
-    if (!chapters) {
-      throw new NotFoundError("Work not found");
-    }
-    return chapters;
-  } catch (e) {
-    if (e instanceof NotFoundError) {
-      throw e;
-    } else {
-      const errorMessage = e instanceof Error ? e.message : "Unknown database error";
-      throw new DatabaseError(errorMessage);
-    }
-  }
-}
-
 export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
   try {
     const paragraphs = await Work.findAll({
