@@ -21,7 +21,7 @@ export class Genre extends Model<GenreAttributes, GenreCreationAttributes> imple
   static associate(models: any): void {
     this.hasMany(models.Work, {
       foreignKey: "GenreType",
-      as: "works",
+      as: "Works",
     });
   }
 

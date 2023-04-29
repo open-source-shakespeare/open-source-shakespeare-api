@@ -46,15 +46,15 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
   static associate(models: any): void {
     this.hasMany(models.Chapter, {
       foreignKey: "WorkID",
-      as: "chapters",
+      as: "Chapters",
     });
     this.hasMany(models.Paragraph, {
       foreignKey: "WorkID",
-      as: "paragraphs",
+      as: "Paragraphs",
     });
     this.belongsTo(models.Genre, {
       foreignKey: "GenreType",
-      as: "genre",
+      as: "Genre",
     });
   }
 

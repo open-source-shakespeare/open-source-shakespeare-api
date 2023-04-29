@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes, Model, Optional } from "sequelize";
+import { Sequelize, DataTypes, Optional, Model } from "sequelize";
 
 export interface ChapterAttributes {
   WorkID: string;
@@ -16,7 +16,10 @@ export type ChapterPlain = {
   [K in keyof ChapterAttributes]: ChapterAttributes[K];
 };
 
-export class Chapter extends Model<ChapterAttributes, ChapterCreationAttributes> implements ChapterAttributes {
+export class Chapter
+  extends Model<ChapterAttributes, ChapterCreationAttributes>
+  implements ChapterAttributes
+{
   WorkID!: string;
   ChapterID!: number;
   Section!: number;
@@ -26,7 +29,7 @@ export class Chapter extends Model<ChapterAttributes, ChapterCreationAttributes>
   static associate(models: any): void {
     this.belongsTo(models.Work, {
       foreignKey: "WorkID",
-      as: "work",
+      as: "Work",
     });
   }
 

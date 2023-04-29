@@ -35,7 +35,10 @@ export type ParagraphPlain = {
   [K in keyof ParagraphAttributes]: ParagraphAttributes[K];
 };
 
-export class Paragraph extends Model<ParagraphAttributes, ParagraphCreationAttributes> implements ParagraphAttributes {
+export class Paragraph
+  extends Model<ParagraphAttributes, ParagraphCreationAttributes>
+  implements ParagraphAttributes
+{
   WorkID!: string;
   ParagraphID!: number;
   ParagraphNum!: number;
@@ -52,7 +55,7 @@ export class Paragraph extends Model<ParagraphAttributes, ParagraphCreationAttri
   static associate(models: any): void {
     this.belongsTo(models.Work, {
       foreignKey: "WorkID",
-      as: "work",
+      as: "Work",
     });
   }
 
@@ -128,6 +131,12 @@ export class Paragraph extends Model<ParagraphAttributes, ParagraphCreationAttri
             unique: true,
             using: "BTREE",
             fields: [{ name: "ParagraphID" }],
+          },
+          {
+            name: "plaintext_fulltext_idx",
+            unique: false,
+            type: "FULLTEXT",
+            fields: ["PlainText"],
           },
         ],
       }
