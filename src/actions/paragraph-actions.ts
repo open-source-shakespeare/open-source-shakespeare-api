@@ -1,13 +1,15 @@
+import { Op, literal } from "sequelize";
 import { models } from "../database";
 import { ParagraphPlain, ParagraphId } from "../models/Paragraph";
 import { NotFoundError, DatabaseError } from "../util/errors";
+import { Work } from "../models/Work";
 
 const { Paragraph } = models;
 
 export async function getParagraphs(): Promise<ParagraphPlain[]> {
   try {
     const paragraphs = await Paragraph.findAll();
-    return paragraphs.map((_) => _.format());
+    return paragraphs;
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);
@@ -20,7 +22,40 @@ export async function getParagraphById(id: ParagraphId): Promise<ParagraphPlain>
     if (!paragraph) {
       throw new NotFoundError("Paragraph not found");
     }
-    return paragraph.format();
+    return paragraph;
+  } catch (e) {
+    if (e instanceof NotFoundError) {
+      throw e;
+    } else {
+      const errorMessage = e instanceof Error ? e.message : "Unknown database error";
+      throw new DatabaseError(errorMessage);
+    }
+  }
+}
+
+export async function searchParagraphs(term: string, workId?: string): Promise<ParagraphPlain[]> {
+  try {
+    const matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}')`);
+
+    const where = {
+      [Op.and]: [matchAgainst, workId ? { workId } : {}],
+    };
+
+    const paragraphs = await Paragraph.findAll({
+      where,
+      include: [
+        {
+          model: Work,
+          as: "work",
+        },
+      ],
+    });
+
+    if (!paragraphs || paragraphs.length === 0) {
+      throw new NotFoundError("No paragraphs found for the given search term");
+    }
+
+    return paragraphs;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
