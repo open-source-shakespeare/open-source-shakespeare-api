@@ -14,6 +14,7 @@ export interface ParagraphAttributes {
   Chapter: number;
   CharCount: number;
   WordCount: number;
+  Work?: object;
 }
 
 export type ParagraphPk = "ParagraphID";
@@ -29,7 +30,8 @@ export type ParagraphOptionalAttributes =
   | "Section"
   | "Chapter"
   | "CharCount"
-  | "WordCount";
+  | "WordCount"
+  | "Work";
 export type ParagraphCreationAttributes = Optional<ParagraphAttributes, ParagraphOptionalAttributes>;
 export type ParagraphPlain = {
   [K in keyof ParagraphAttributes]: ParagraphAttributes[K];
@@ -51,6 +53,7 @@ export class Paragraph
   Chapter!: number;
   CharCount!: number;
   WordCount!: number;
+  Work?: object;
 
   static associate(models: any): void {
     this.belongsTo(models.Work, {

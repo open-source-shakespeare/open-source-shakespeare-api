@@ -35,9 +35,9 @@ export async function getWorkOutlineById(id: WorkId): Promise<WorkPlain> {
   }
 }
 
-export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
+export async function getWorkById(workId: WorkId): Promise<WorkPlain> {
   try {
-    const paragraphs = await Work.findAll({
+    const paragraph = await Work.findOne({
       include: [
         {
           model: Paragraph,
@@ -45,7 +45,7 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
           where: Paragraph
             ? {
                 WorkId: {
-                  [Op.like]: `%${workId}%`,
+                  [Op.like]: workId,
                 },
               }
             : undefined,
@@ -63,10 +63,10 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
         },
       ],
     });
-    if (!paragraphs) {
+    if (!paragraph) {
       throw new NotFoundError("Work not found");
     }
-    return paragraphs;
+    return paragraph;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;

@@ -12,6 +12,9 @@ export interface WorkAttributes {
   Source: string;
   TotalWords?: number;
   TotalParagraphs?: number;
+  Paragraphs?: any;
+  Chapters?: any;
+  Genre?: any;
 }
 
 export type WorkPk = "WorkID";
