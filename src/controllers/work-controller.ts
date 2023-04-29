@@ -13,7 +13,7 @@ export async function handleGetWorks(_: Request, res: Response, next: NextFuncti
 
 export async function handleGetWorkOutlineById(req: Request, res: Response, next: NextFunction) {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const work = await getWorkOutlineById(id);
     res.json(work);
   } catch (e) {
@@ -23,9 +23,9 @@ export async function handleGetWorkOutlineById(req: Request, res: Response, next
 
 export async function handleGetWorkById(req: Request, res: Response, next: NextFunction) {
   try {
-    const id = req.params.id;
-    const Work = await getWorkById(id);
-    res.json(Work);
+    const { id } = req.params;
+    const work = await getWorkById(id);
+    res.json(work);
   } catch (e) {
     next(e);
   }
@@ -33,7 +33,7 @@ export async function handleGetWorkById(req: Request, res: Response, next: NextF
 
 export async function handleGetChaptersByWorkId(req: Request, res: Response, next: NextFunction) {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const work = await getChaptersByWorkId(id);
     res.json(work);
   } catch (e) {
@@ -43,7 +43,7 @@ export async function handleGetChaptersByWorkId(req: Request, res: Response, nex
 
 export async function handleGetWorksByGenre(req: Request, res: Response, next: NextFunction) {
   try {
-    const genre = req.params.genre;
+    const { genre } = req.params;
     const work = await getWorksByGenre(genre);
     res.json(work);
   } catch (e) {

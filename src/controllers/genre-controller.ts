@@ -12,7 +12,7 @@ export async function handleGetGenres(_: Request, res: Response, next: NextFunct
 
 export async function handleGetGenreById(req: Request, res: Response, next: NextFunction) {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const genre = await getGenreById(id);
     res.json(genre);
   } catch (e) {
@@ -22,7 +22,7 @@ export async function handleGetGenreById(req: Request, res: Response, next: Next
 
 export async function handleGetGenreByName(req: Request, res: Response, next: NextFunction) {
   try {
-    const name = req.params.name;
+    const { name } = req.params;
     const genre = await getGenreByName(name);
     res.json(genre);
   } catch (e) {

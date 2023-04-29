@@ -12,7 +12,7 @@ export async function handleGetCharacters(_: Request, res: Response, next: NextF
 
 export async function handleGetCharacterById(req: Request, res: Response, next: NextFunction) {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const character = await getCharacterById(id);
     res.json(character);
   } catch (e) {
@@ -22,7 +22,7 @@ export async function handleGetCharacterById(req: Request, res: Response, next: 
 
 export async function handleGetCharactersByName(req: Request, res: Response, next: NextFunction) {
   try {
-    const name = req.params.name;
+    const { name } = req.params;
     const character = await getCharactersByName(name);
     res.json(character);
   } catch (e) {
