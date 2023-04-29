@@ -46,7 +46,7 @@ export async function searchParagraphs(term: string, workId?: string): Promise<P
       include: [
         {
           model: Work,
-          as: "work",
+          as: "Work",
         },
       ],
     });
