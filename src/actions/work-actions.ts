@@ -131,8 +131,7 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
     if (!works) {
       throw new NotFoundError("Work not found");
     }
-    works.map((_) => _.format());
-    return works;
+    return works.map((_) => _.format());
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
@@ -146,47 +145,32 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
 export async function searchWorks(title?: string, genre?: string, date?: number): Promise<WorkPlain[]> {
   try {
     const where: any = {};
+    const include: any = [];
     if (title) {
-      where.Title = {
-        where: {
-          Title: {
-            [Op.like]: `%${title}%`,
-          },
-        },
+      where.title = {
+        [Op.like]: `%${title}%`,
       };
     }
     if (date) {
-      where.Date = {
-        where: {
-          Date: {
-            [Op.eq]: date,
-          },
-        },
-      };
+      where.date = date;
     }
     if (genre) {
-      where.Genre = {
-        include: [
-          {
-            model: Genre,
-            as: "genre",
-            where: genre
-              ? {
-                  GenreName: {
-                    [Op.eq]: genre,
-                  },
-                }
-              : undefined,
-            required: genre ? true : false,
+      include.push({
+        model: Genre,
+        as: "genre",
+        where: {
+          GenreName: {
+            [Op.eq]: genre,
           },
-        ],
-      };
+        },
+        required: true,
+      });
     }
-    const works = await Work.findAll(where);
+    const works = await Work.findAll({ where, include });
     if (!works) {
       throw new NotFoundError("Work not found");
     }
-    return works.map((_) => _.format());
+    return works;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
