@@ -21,7 +21,7 @@ export async function getGenreById(id: GenreId): Promise<GenrePlain> {
     if (!genre) {
       throw new NotFoundError("Genre not found");
     }
-    return genre.format();
+    return genre;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;

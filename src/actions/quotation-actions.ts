@@ -7,7 +7,7 @@ const { Quotation } = models;
 export async function getQuotations(): Promise<QuotationPlain[]> {
   try {
     const quotations = await Quotation.findAll();
-    return quotations.map((_) => _.format());
+    return quotations;
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);

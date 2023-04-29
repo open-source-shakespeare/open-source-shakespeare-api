@@ -7,9 +7,10 @@ const { WordForm } = models;
 export async function getWordForms(): Promise<WordFormPlain[]> {
   try {
     const wordforms = await WordForm.findAll();
-    return wordforms.map((_) => _.format());
+    return wordforms;
   } catch (e) {
-    const errorMessage = e instanceof Error ? `These are the droids you're looking for ${e.message}` : "Unknown database error";
+    const errorMessage =
+      e instanceof Error ? `These are the droids you're looking for ${e.message}` : "Unknown database error";
     throw new DatabaseError(errorMessage);
   }
 }

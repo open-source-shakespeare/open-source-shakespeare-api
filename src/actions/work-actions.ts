@@ -11,7 +11,7 @@ const { Work } = models;
 export async function getWorks(): Promise<WorkPlain[]> {
   try {
     const works = await Work.findAll();
-    return works.map((_) => _.format());
+    return works;
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);
@@ -24,7 +24,7 @@ export async function getWorkOutlineById(id: WorkId): Promise<WorkPlain> {
     if (!work) {
       throw new NotFoundError("Work not found");
     }
-    return work.format();
+    return work;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
@@ -41,7 +41,7 @@ export async function getChaptersByWorkId(workId: WorkId): Promise<WorkPlain[]> 
       include: [
         {
           model: Chapter,
-          as: "chapters",
+          as: "Chapters",
           where: Chapter
             ? {
                 WorkId: {
@@ -55,7 +55,6 @@ export async function getChaptersByWorkId(workId: WorkId): Promise<WorkPlain[]> 
     if (!chapters) {
       throw new NotFoundError("Work not found");
     }
-    chapters.map((_) => _.format());
     return chapters;
   } catch (e) {
     if (e instanceof NotFoundError) {
@@ -73,7 +72,7 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
       include: [
         {
           model: Paragraph,
-          as: "paragraphs",
+          as: "Paragraphs",
           where: Paragraph
             ? {
                 WorkId: {
@@ -84,7 +83,7 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
         },
         {
           model: Chapter,
-          as: "chapters",
+          as: "Chapters",
           where: Chapter
             ? {
                 WorkId: {
@@ -98,7 +97,6 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain[]> {
     if (!paragraphs) {
       throw new NotFoundError("Work not found");
     }
-    paragraphs.map((_) => _.format());
     return paragraphs;
   } catch (e) {
     if (e instanceof NotFoundError) {
@@ -116,7 +114,7 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
       include: [
         {
           model: Genre,
-          as: "genre",
+          as: "Genre",
           where: genre
             ? {
                 GenreName: {
@@ -131,7 +129,7 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
     if (!works) {
       throw new NotFoundError("Work not found");
     }
-    return works.map((_) => _.format());
+    return works;
   } catch (e) {
     if (e instanceof NotFoundError) {
       throw e;
@@ -145,7 +143,18 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
 export async function searchWorks(title?: string, genre?: string, date?: number): Promise<WorkPlain[]> {
   try {
     const where: any = {};
-    const include: any = [];
+    const genreInclude: any = {
+      model: Genre,
+      as: "Genre",
+    };
+
+    if (genre) {
+      genreInclude.where = {
+        GenreName: {
+          [Op.eq]: genre,
+        },
+      };
+    }
     if (title) {
       where.title = {
         [Op.like]: `%${title}%`,
@@ -154,19 +163,7 @@ export async function searchWorks(title?: string, genre?: string, date?: number)
     if (date) {
       where.date = date;
     }
-    if (genre) {
-      include.push({
-        model: Genre,
-        as: "genre",
-        where: {
-          GenreName: {
-            [Op.eq]: genre,
-          },
-        },
-        required: true,
-      });
-    }
-    const works = await Work.findAll({ where, include });
+    const works = await Work.findAll({ where, include: [genreInclude] });
     if (!works) {
       throw new NotFoundError("Work not found");
     }
