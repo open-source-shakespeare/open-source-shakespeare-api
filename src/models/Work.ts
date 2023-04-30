@@ -55,6 +55,7 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
       foreignKey: "WorkID",
       as: "Paragraphs",
     });
+    console.log("models.Genre:", models.Genre);
     this.belongsTo(models.Genre, {
       foreignKey: "GenreType",
       as: "Genre",

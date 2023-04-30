@@ -1,17 +1,17 @@
 import type { Sequelize } from "sequelize";
-import { Chapter as _Chapter } from "./Chapter";
+import { Chapter, Chapter as _Chapter } from "./Chapter";
 import type { ChapterAttributes, ChapterCreationAttributes } from "./Chapter";
-import { Character as _Character } from "./Character";
+import { Character, Character as _Character } from "./Character";
 import type { CharacterAttributes, CharacterCreationAttributes } from "./Character";
-import { Genre as _Genre } from "./Genre";
+import { Genre, Genre as _Genre } from "./Genre";
 import type { GenreAttributes, GenreCreationAttributes } from "./Genre";
-import { Paragraph as _Paragraph } from "./Paragraph";
+import { Paragraph, Paragraph as _Paragraph } from "./Paragraph";
 import type { ParagraphAttributes, ParagraphCreationAttributes } from "./Paragraph";
-import { Quotation as _Quotation } from "./Quotation";
+import { Quotation, Quotation as _Quotation } from "./Quotation";
 import type { QuotationAttributes, QuotationCreationAttributes } from "./Quotation";
-import { Work as _Work } from "./Work";
+import { Work, Work as _Work } from "./Work";
 import type { WorkAttributes, WorkCreationAttributes } from "./Work";
-import { WordForm as _WordForm } from "./WordForm";
+import { WordForm, WordForm as _WordForm } from "./WordForm";
 
 export {
   _Chapter as Chapter,
@@ -38,7 +38,7 @@ export type {
   WorkCreationAttributes,
 };
 
-export function initModels(sequelize: Sequelize) {
+export function initModels(sequelize: Sequelize): Models {
   const Chapter = _Chapter.initModel(sequelize);
   const Character = _Character.initModel(sequelize);
   const Genre = _Genre.initModel(sequelize);
@@ -46,14 +46,23 @@ export function initModels(sequelize: Sequelize) {
   const Quotation = _Quotation.initModel(sequelize);
   const Work = _Work.initModel(sequelize);
   const WordForm = _WordForm.initModel(sequelize);
-
   const models = { Chapter, Character, Genre, Paragraph, Quotation, Work, WordForm };
 
   for (const model of Object.values(models)) {
-    if ("associate" in model) {
+    if (model && "associate" in model) {
       model.associate(models);
     }
   }
 
   return models;
+}
+
+export interface Models {
+  Chapter: typeof Chapter;
+  Character: typeof Character;
+  Genre: typeof Genre;
+  Paragraph: typeof Paragraph;
+  Quotation: typeof Quotation;
+  Work: typeof Work;
+  WordForm: typeof WordForm;
 }
