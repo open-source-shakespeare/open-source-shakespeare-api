@@ -5,10 +5,11 @@ import { initModels } from "./models/init-models";
 dotenv.config();
 
 export const sequelize = new Sequelize({
-  host: process.env.MYSQL_HOST,
-  database: process.env.MYSQL_DATABASE,
-  username: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
+  host: process.env.MYSQL_HOST ?? "localhost",
+  database: process.env.MYSQL_DATABASE ?? "shakespeare",
+  username: process.env.MYSQL_USER ?? "root",
+  password: process.env.MYSQL_PASSWORD ?? "1234",
+  port: parseInt(process.env.MYSQL_PORT ?? "3306"),
   dialect: "mysql",
   logging: false,
 });

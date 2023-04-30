@@ -1,4 +1,4 @@
-version: '20.10'
+version: "20.10"
 
 services:
   app:
@@ -6,21 +6,32 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
-      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/${MYSQL_DATABASE}
+      MYSQL_HOST: "db"
+      MYSQL_USER: "foobar"
+      MYSQL_PASSWORD: "1234"
+      MYSQL_DATABASE: "shakespeare"
+      MYSQL_PORT: "3306"
+      PORT: "3000"
   db:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: "shakespeare"
+      MYSQL_USER: "foobar"
+      MYSQL_PASSWORD: "1234"
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - "33061:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./db-init-scripts/oss-db-full.sql:/docker-entrypoint-initdb.d/oss-db-full.sql
+    healthcheck:
+      test: "mysqladmin ping -h 127.0.0.1"
+      interval: 20s
+      start_period: 30s
+      timeout: 5s
+      retries: 5
 volumes:
   db_data:
