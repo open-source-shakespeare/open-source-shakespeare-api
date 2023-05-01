@@ -4,7 +4,7 @@ import { handleGetGenres, handleGetGenreById, handleGetGenreByName } from "../co
 const router = express.Router();
 
 router.get("/", handleGetGenres);
-router.get("/id/:id", handleGetGenreById);
+router.get("/:id", handleGetGenreById);
 router.get("/name/:name", handleGetGenreByName);
 
 export { router as genreRouter };

@@ -1,14 +1,9 @@
 import express from "express";
-import {
-  handleGetParagraphs,
-  handleGetParagraphById,
-  handleSearchParagraphs,
-} from "../controllers/paragraph-controller";
+import { handleGetParagraphById, handleSearchParagraphs } from "../controllers/paragraph-controller";
 
 const router = express.Router();
 
-router.get("/", handleGetParagraphs);
-router.get("/id/:id", handleGetParagraphById);
-router.get("/search", handleSearchParagraphs);
+router.get("/", handleSearchParagraphs);
+router.get("/:id", handleGetParagraphById);
 
 export { router as paragraphRouter };

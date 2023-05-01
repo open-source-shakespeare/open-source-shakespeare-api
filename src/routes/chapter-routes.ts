@@ -4,6 +4,6 @@ import { handleGetChapterById, handleGetChapters } from "../controllers/chapter-
 const router = express.Router();
 
 router.get("/", handleGetChapters);
-router.get("/id/:id", handleGetChapterById);
+router.get("/:id", handleGetChapterById);
 
 export { router as chapterRouter };
