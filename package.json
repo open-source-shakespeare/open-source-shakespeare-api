@@ -5,8 +5,9 @@
   "main": "./src/server.ts",
   "scripts": {
     "start": "ts-node ./src/server.ts",
-    "start:dev": "nodemon",
-    "test": "jest"
+    "start:dev": "npm run start:db && nodemon",
+    "test": "jest",
+    "start:db": "docker-compose -f docker-compose.dev.yml up -d"
   },
   "author": "mghmay",
   "license": "MIT",
