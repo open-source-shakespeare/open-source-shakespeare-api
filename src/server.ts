@@ -2,6 +2,9 @@ import express from "express";
 import { router } from "./routes/router";
 import { errorHandler } from "./middleware/error-handler";
 import { logger } from "./middleware/logger";
+import { initDb } from "./database";
+
+initDb();
 
 const app = express();
 

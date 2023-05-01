@@ -14,15 +14,17 @@ export const sequelize = new Sequelize({
   logging: false,
 });
 
-export const models = initModels(sequelize);
+export function initDb() {
+  initModels(sequelize);
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch((err) => {
-    console.error("Unable to connect to the database:", err);
-  });
+  sequelize
+    .authenticate()
+    .then(() => {
+      console.log("Connection has been established successfully.");
+    })
+    .catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    });
 
-sequelize.sync();
+  sequelize.sync();
+}
