@@ -1,10 +1,7 @@
-import { models } from "../database";
-import { QuotationPlain } from "../models/Quotation";
+import { Quotation } from "../models/Quotation";
 import { DatabaseError } from "../util/errors";
 
-const { Quotation } = models;
-
-export async function getQuotations(): Promise<QuotationPlain[]> {
+export async function getQuotations(): Promise<Quotation[]> {
   try {
     const quotations = await Quotation.findAll();
     return quotations;

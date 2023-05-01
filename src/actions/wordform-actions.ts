@@ -1,10 +1,7 @@
-import { models } from "../database";
-import { WordFormPlain } from "../models/WordForm";
+import { WordForm } from "../models/WordForm";
 import { DatabaseError } from "../util/errors";
 
-const { WordForm } = models;
-
-export async function getWordForms(): Promise<WordFormPlain[]> {
+export async function getWordForms(): Promise<WordForm[]> {
   try {
     const wordforms = await WordForm.findAll();
     return wordforms;

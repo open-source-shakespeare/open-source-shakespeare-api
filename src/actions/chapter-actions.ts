@@ -1,10 +1,7 @@
-import { models } from "../database";
-import { ChapterId, ChapterPlain } from "../models/Chapter";
+import { Chapter } from "../models/Chapter";
 import { DatabaseError, NotFoundError } from "../util/errors";
 
-const { Chapter } = models;
-
-export async function getChapters(): Promise<ChapterPlain[]> {
+export async function getChapters(): Promise<Chapter[]> {
   try {
     const chapters = await Chapter.findAll();
     return chapters;
@@ -14,7 +11,7 @@ export async function getChapters(): Promise<ChapterPlain[]> {
   }
 }
 
-export async function getChapterById(id: ChapterId): Promise<ChapterPlain> {
+export async function getChapterById(id: number): Promise<Chapter> {
   try {
     const chapter = await Chapter.findByPk(id);
     if (!chapter) {

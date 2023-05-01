@@ -1,14 +1,11 @@
 import { Op } from "sequelize";
-import { models } from "../database";
-import { WorkPlain, WorkId } from "../models/Work";
+import { Work, WorkId } from "../models/Work";
 import { NotFoundError, DatabaseError } from "../util/errors";
 import { Chapter } from "../models/Chapter";
 import { Genre } from "../models/Genre";
 import { Paragraph } from "../models/Paragraph";
 
-const { Work } = models;
-
-export async function getWorks(): Promise<WorkPlain[]> {
+export async function getWorks(): Promise<Work[]> {
   try {
     const works = await Work.findAll();
     return works;
@@ -18,7 +15,7 @@ export async function getWorks(): Promise<WorkPlain[]> {
   }
 }
 
-export async function getWorkOutlineById(id: WorkId): Promise<WorkPlain> {
+export async function getWorkOutlineById(id: WorkId): Promise<Work> {
   try {
     const work = await Work.findByPk(id);
     if (!work) {
@@ -35,7 +32,7 @@ export async function getWorkOutlineById(id: WorkId): Promise<WorkPlain> {
   }
 }
 
-export async function getWorkById(workId: WorkId): Promise<WorkPlain> {
+export async function getWorkById(workId: WorkId): Promise<Work> {
   try {
     const paragraph = await Work.findOne({
       include: [
@@ -77,7 +74,7 @@ export async function getWorkById(workId: WorkId): Promise<WorkPlain> {
   }
 }
 
-export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
+export async function getWorksByGenre(genre: string): Promise<Work[]> {
   try {
     const works = await Work.findAll({
       include: [
@@ -109,7 +106,7 @@ export async function getWorksByGenre(genre: string): Promise<WorkPlain[]> {
   }
 }
 
-export async function searchWorks(title?: string, genre?: string, date?: number): Promise<WorkPlain[]> {
+export async function searchWorks(title?: string, genre?: string, date?: number): Promise<Work[]> {
   try {
     const where: any = {};
     const genreInclude: any = {

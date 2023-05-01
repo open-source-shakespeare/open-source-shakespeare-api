@@ -1,12 +1,9 @@
 import { Op, literal } from "sequelize";
-import { models } from "../database";
-import { ParagraphPlain, ParagraphId } from "../models/Paragraph";
+import { Paragraph, ParagraphId } from "../models/Paragraph";
 import { NotFoundError, DatabaseError } from "../util/errors";
 import { Work } from "../models/Work";
 
-const { Paragraph } = models;
-
-export async function getParagraphs(): Promise<ParagraphPlain[]> {
+export async function getParagraphs(): Promise<Paragraph[]> {
   try {
     const paragraphs = await Paragraph.findAll();
     return paragraphs;
@@ -16,7 +13,7 @@ export async function getParagraphs(): Promise<ParagraphPlain[]> {
   }
 }
 
-export async function getParagraphById(id: ParagraphId): Promise<ParagraphPlain> {
+export async function getParagraphById(id: ParagraphId): Promise<Paragraph> {
   try {
     const paragraph = await Paragraph.findByPk(id);
     if (!paragraph) {
@@ -33,7 +30,7 @@ export async function getParagraphById(id: ParagraphId): Promise<ParagraphPlain>
   }
 }
 
-export async function searchParagraphs(term: string, workId?: string): Promise<ParagraphPlain[]> {
+export async function searchParagraphs(term: string, workId?: string): Promise<Paragraph[]> {
   try {
     const matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}')`);
 

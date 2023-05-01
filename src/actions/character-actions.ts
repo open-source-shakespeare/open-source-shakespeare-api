@@ -1,11 +1,8 @@
 import { Op } from "sequelize";
-import { models } from "../database";
-import { CharacterPlain, CharacterId } from "../models/Character";
+import { Character, CharacterId } from "../models/Character";
 import { NotFoundError, DatabaseError } from "../util/errors";
 
-const { Character } = models;
-
-export async function getCharacters(): Promise<CharacterPlain[]> {
+export async function getCharacters(): Promise<Character[]> {
   try {
     const characters = await Character.findAll();
     return characters;
@@ -15,7 +12,7 @@ export async function getCharacters(): Promise<CharacterPlain[]> {
   }
 }
 
-export async function getCharacterById(id: CharacterId): Promise<CharacterPlain> {
+export async function getCharacterById(id: CharacterId): Promise<Character> {
   try {
     const character = await Character.findByPk(id);
     if (!character) {
@@ -32,7 +29,7 @@ export async function getCharacterById(id: CharacterId): Promise<CharacterPlain>
   }
 }
 
-export async function getCharactersByName(name: string): Promise<CharacterPlain[]> {
+export async function getCharactersByName(name: string): Promise<Character[]> {
   try {
     const characters = await Character.findAll({
       where: {

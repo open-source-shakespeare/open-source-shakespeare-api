@@ -1,21 +1,18 @@
 import { Op } from "sequelize";
-import { models } from "../database";
-import { GenrePlain, GenreId } from "../models/Genre";
+import { Genre, GenreId } from "../models/Genre";
 import { NotFoundError, DatabaseError } from "../util/errors";
 
-const { Genre } = models;
-
-export async function getGenres(): Promise<GenrePlain[]> {
+export async function getGenres(): Promise<Genre[]> {
   try {
     const genres = await Genre.findAll();
-    return genres.map((_) => _.format());
+    return genres;
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : "Unknown database error";
     throw new DatabaseError(errorMessage);
   }
 }
 
-export async function getGenreById(id: GenreId): Promise<GenrePlain> {
+export async function getGenreById(id: GenreId): Promise<Genre> {
   try {
     const genre = await Genre.findByPk(id);
     if (!genre) {
@@ -32,7 +29,7 @@ export async function getGenreById(id: GenreId): Promise<GenrePlain> {
   }
 }
 
-export async function getGenreByName(name: string): Promise<GenrePlain> {
+export async function getGenreByName(name: string): Promise<Genre> {
   try {
     const genre = await Genre.findOne({
       where: {
