@@ -1,5 +1,5 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 
 export interface CharacterAttributes {
   CharID: string;
@@ -10,33 +10,18 @@ export interface CharacterAttributes {
   SpeechCount?: number;
 }
 
-export type CharacterPk = "CharID";
-export type CharacterId = Character[CharacterPk];
-export type CharacterOptionalAttributes =
-  | "CharID"
-  | "CharName"
-  | "Abbrev"
-  | "Works"
-  | "Description"
-  | "SpeechCount";
-export type CharacterCreationAttributes = Optional<CharacterAttributes, CharacterOptionalAttributes>;
-export type CharacterPlain = {
-  [K in keyof CharacterAttributes]: CharacterAttributes[K];
-};
+export type CharacterId = Character["CharID"];
 
-export class Character
-  extends Model<CharacterAttributes, CharacterCreationAttributes>
-  implements CharacterAttributes
-{
-  CharID!: string;
-  CharName!: string;
-  Abbrev?: string;
-  Works!: string;
-  Description!: string;
-  SpeechCount?: number;
+export class Character extends Model<CharacterAttributes> implements CharacterAttributes {
+  declare CharID: CharacterAttributes["CharID"];
+  declare CharName: CharacterAttributes["CharName"];
+  declare Abbrev: CharacterAttributes["Abbrev"];
+  declare Works: CharacterAttributes["Works"];
+  declare Description: CharacterAttributes["Works"];
+  declare SpeechCount: CharacterAttributes["SpeechCount"];
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Character {
-    return Character.init(
+  static initModel(sequelize: Sequelize.Sequelize) {
+    Character.init(
       {
         CharID: {
           type: DataTypes.STRING(50),
@@ -82,9 +67,5 @@ export class Character
         ],
       }
     );
-  }
-
-  format(): CharacterPlain {
-    return { ...this.get() };
   }
 }

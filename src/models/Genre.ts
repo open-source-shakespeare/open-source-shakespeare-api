@@ -1,32 +1,27 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import { Work } from "./Work";
 
 export interface GenreAttributes {
   GenreType: string;
   GenreName: string;
 }
 
-export type GenrePk = "GenreType";
-export type GenreId = Genre[GenrePk];
-export type GenreOptionalAttributes = "GenreType" | "GenreName";
-export type GenreCreationAttributes = Optional<GenreAttributes, GenreOptionalAttributes>;
-export type GenrePlain = {
-  [K in keyof GenreAttributes]: GenreAttributes[K];
-};
+export type GenreId = Genre["GenreType"];
 
-export class Genre extends Model<GenreAttributes, GenreCreationAttributes> implements GenreAttributes {
-  GenreType!: string;
-  GenreName!: string;
+export class Genre extends Model<GenreAttributes> implements GenreAttributes {
+  declare GenreType: GenreAttributes["GenreType"];
+  declare GenreName: GenreAttributes["GenreName"];
 
-  static associate(models: any): void {
-    this.hasMany(models.Work, {
+  static associate(): void {
+    Genre.hasMany(Work, {
       foreignKey: "GenreType",
       as: "Works",
     });
   }
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Genre {
-    return Genre.init(
+  static initModel(sequelize: Sequelize.Sequelize) {
+    Genre.init(
       {
         GenreType: {
           type: DataTypes.STRING(255),
@@ -58,9 +53,5 @@ export class Genre extends Model<GenreAttributes, GenreCreationAttributes> imple
         ],
       }
     );
-  }
-
-  format(): GenrePlain {
-    return { ...this.get() };
   }
 }

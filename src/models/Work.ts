@@ -1,5 +1,8 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import { Chapter } from "./Chapter";
+import { Genre } from "./Genre";
+import { Paragraph } from "./Paragraph";
 
 export interface WorkAttributes {
   WorkID: string;
@@ -17,53 +20,37 @@ export interface WorkAttributes {
   Genre?: any;
 }
 
-export type WorkPk = "WorkID";
-export type WorkId = Work[WorkPk];
-export type WorkOptionalAttributes =
-  | "WorkID"
-  | "Title"
-  | "LongTitle"
-  | "ShortTitle"
-  | "Date"
-  | "GenreType"
-  | "Source"
-  | "TotalWords"
-  | "TotalParagraphs";
-export type WorkCreationAttributes = Optional<WorkAttributes, WorkOptionalAttributes>;
-export type WorkPlain = {
-  [K in keyof WorkAttributes]: WorkAttributes[K];
-};
+export type WorkId = Work["WorkID"];
 
-export class Work extends Model<WorkAttributes, WorkCreationAttributes> implements WorkAttributes {
-  WorkID!: string;
-  Title!: string;
-  LongTitle!: string;
-  ShortTitle?: string;
-  Date!: number;
-  GenreType!: string;
-  Notes!: any;
-  Source!: string;
-  TotalWords?: number;
-  TotalParagraphs?: number;
+export class Work extends Model<WorkAttributes> implements WorkAttributes {
+  declare WorkID: WorkAttributes["WorkID"];
+  declare Title: WorkAttributes["Title"];
+  declare LongTitle: WorkAttributes["LongTitle"];
+  declare ShortTitle: WorkAttributes["ShortTitle"];
+  declare Date: WorkAttributes["Date"];
+  declare GenreType: WorkAttributes["GenreType"];
+  declare Notes: WorkAttributes["Notes"];
+  declare Source: WorkAttributes["Source"];
+  declare TotalWords: WorkAttributes["TotalWords"];
+  declare TotalParagraphs: WorkAttributes["TotalParagraphs"];
 
-  static associate(models: any): void {
-    this.hasMany(models.Chapter, {
+  static associate(): void {
+    Work.hasMany(Chapter, {
       foreignKey: "WorkID",
       as: "Chapters",
     });
-    this.hasMany(models.Paragraph, {
+    Work.hasMany(Paragraph, {
       foreignKey: "WorkID",
       as: "Paragraphs",
     });
-    console.log("models.Genre:", models.Genre);
-    this.belongsTo(models.Genre, {
+    Work.belongsTo(Genre, {
       foreignKey: "GenreType",
       as: "Genre",
     });
   }
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Work {
-    return Work.init(
+  static initModel(sequelize: Sequelize.Sequelize) {
+    Work.init(
       {
         WorkID: {
           type: DataTypes.STRING(50),
@@ -131,8 +118,5 @@ export class Work extends Model<WorkAttributes, WorkCreationAttributes> implemen
         ],
       }
     );
-  }
-  format(): WorkPlain {
-    return { ...this.get() };
   }
 }

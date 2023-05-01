@@ -1,5 +1,5 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 
 export interface QuotationAttributes {
   QuotationID: number;
@@ -7,18 +7,12 @@ export interface QuotationAttributes {
   Location: string;
 }
 
-export type QuotationPk = "QuotationID";
-export type QuotationId = Quotation[QuotationPk];
-export type QuotationOptionalAttributes = "QuotationID" | "QuotationText" | "Location";
-export type QuotationCreationAttributes = Optional<QuotationAttributes, QuotationOptionalAttributes>;
-export type QuotationPlain = {
-  [K in keyof QuotationAttributes]: QuotationAttributes[K];
-};
+export type QuotationId = Quotation["QuotationID"];
 
-export class Quotation extends Model<QuotationAttributes, QuotationCreationAttributes> implements QuotationAttributes {
-  QuotationID!: number;
-  QuotationText!: string;
-  Location!: string;
+export class Quotation extends Model<QuotationAttributes> implements QuotationAttributes {
+  declare QuotationID: QuotationAttributes["QuotationID"];
+  declare QuotationText: QuotationAttributes["QuotationText"];
+  declare Location: QuotationAttributes["Location"];
 
   static initModel(sequelize: Sequelize.Sequelize): typeof Quotation {
     return Quotation.init(
@@ -54,8 +48,5 @@ export class Quotation extends Model<QuotationAttributes, QuotationCreationAttri
         ],
       }
     );
-  }
-  format(): QuotationPlain {
-    return { ...this.get() };
   }
 }

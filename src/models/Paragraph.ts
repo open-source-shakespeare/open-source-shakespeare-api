@@ -1,5 +1,6 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
+import { Work } from "./Work";
 
 export interface ParagraphAttributes {
   WorkID: string;
@@ -17,53 +18,32 @@ export interface ParagraphAttributes {
   Work?: object;
 }
 
-export type ParagraphPk = "ParagraphID";
-export type ParagraphId = Paragraph[ParagraphPk];
-export type ParagraphOptionalAttributes =
-  | "WorkID"
-  | "ParagraphID"
-  | "ParagraphNum"
-  | "CharID"
-  | "PhoneticText"
-  | "StemText"
-  | "ParagraphType"
-  | "Section"
-  | "Chapter"
-  | "CharCount"
-  | "WordCount"
-  | "Work";
-export type ParagraphCreationAttributes = Optional<ParagraphAttributes, ParagraphOptionalAttributes>;
-export type ParagraphPlain = {
-  [K in keyof ParagraphAttributes]: ParagraphAttributes[K];
-};
+export type ParagraphId = Paragraph["ParagraphID"];
 
-export class Paragraph
-  extends Model<ParagraphAttributes, ParagraphCreationAttributes>
-  implements ParagraphAttributes
-{
-  WorkID!: string;
-  ParagraphID!: number;
-  ParagraphNum!: number;
-  CharID!: string;
-  PlainText!: string;
-  PhoneticText?: string;
-  StemText?: string;
-  ParagraphType!: string;
-  Section!: number;
-  Chapter!: number;
-  CharCount!: number;
-  WordCount!: number;
-  Work?: object;
+export class Paragraph extends Model<ParagraphAttributes> implements ParagraphAttributes {
+  declare WorkID: ParagraphAttributes["WorkID"];
+  declare ParagraphID: ParagraphAttributes["ParagraphID"];
+  declare ParagraphNum: ParagraphAttributes["ParagraphNum"];
+  declare CharID: ParagraphAttributes["CharID"];
+  declare PlainText: ParagraphAttributes["PlainText"];
+  declare PhoneticText: ParagraphAttributes["PhoneticText"];
+  declare StemText: ParagraphAttributes["StemText"];
+  declare ParagraphType: ParagraphAttributes["ParagraphType"];
+  declare Section: ParagraphAttributes["Section"];
+  declare Chapter: ParagraphAttributes["Chapter"];
+  declare CharCount: ParagraphAttributes["CharCount"];
+  declare WordCount: ParagraphAttributes["WordCount"];
+  declare Work: ParagraphAttributes["Work"];
 
-  static associate(models: any): void {
-    this.belongsTo(models.Work, {
+  static associate() {
+    Paragraph.belongsTo(Work, {
       foreignKey: "WorkID",
       as: "Work",
     });
   }
 
-  static initModel(sequelize: Sequelize.Sequelize): typeof Paragraph {
-    return Paragraph.init(
+  static initModel(sequelize: Sequelize.Sequelize) {
+    Paragraph.init(
       {
         WorkID: {
           type: DataTypes.STRING(255),
@@ -144,8 +124,5 @@ export class Paragraph
         ],
       }
     );
-  }
-  format(): ParagraphPlain {
-    return { ...this.get() };
   }
 }

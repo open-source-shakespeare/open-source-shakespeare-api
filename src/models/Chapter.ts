@@ -1,4 +1,5 @@
-import { Sequelize, DataTypes, Optional, Model } from "sequelize";
+import { Sequelize, DataTypes, Model } from "sequelize";
+import { Work } from "./Work";
 
 export interface ChapterAttributes {
   WorkID: string;
@@ -8,33 +9,24 @@ export interface ChapterAttributes {
   Description: string;
 }
 
-export type ChapterPk = "ChapterID";
-export type ChapterId = Chapter[ChapterPk];
-export type ChapterOptionalAttributes = "WorkID" | "ChapterID" | "Section" | "Chapter" | "Description";
-export type ChapterCreationAttributes = Optional<ChapterAttributes, ChapterOptionalAttributes>;
-export type ChapterPlain = {
-  [K in keyof ChapterAttributes]: ChapterAttributes[K];
-};
+export type ChapterId = Chapter["ChapterID"];
 
-export class Chapter
-  extends Model<ChapterAttributes, ChapterCreationAttributes>
-  implements ChapterAttributes
-{
-  WorkID!: string;
-  ChapterID!: number;
-  Section!: number;
-  Chapter!: number;
-  Description!: string;
+export class Chapter extends Model<ChapterAttributes> implements ChapterAttributes {
+  declare WorkID: string;
+  declare ChapterID: number;
+  declare Section: number;
+  declare Chapter: number;
+  declare Description: string;
 
-  static associate(models: any): void {
-    this.belongsTo(models.Work, {
+  static associate() {
+    Chapter.belongsTo(Work, {
       foreignKey: "WorkID",
       as: "Work",
     });
   }
 
-  static initModel(sequelize: Sequelize): typeof Chapter {
-    return Chapter.init(
+  static initModel(sequelize: Sequelize) {
+    Chapter.init(
       {
         WorkID: {
           type: DataTypes.STRING(255),
@@ -77,9 +69,5 @@ export class Chapter
         ],
       }
     );
-  }
-
-  format(): ChapterPlain {
-    return { ...this.get() };
   }
 }

@@ -1,5 +1,5 @@
 import * as Sequelize from "sequelize";
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 
 export interface WordFormAttributes {
   WordFormID: number;
@@ -8,22 +8,17 @@ export interface WordFormAttributes {
   StemText: string;
   Occurences: number;
 }
+export type WordFormId = WordFormAttributes["WordFormID"];
 
-export type WordFormOptionalAttributes = "WordFormID" | "PlainText" | "PhoneticText" | "StemText" | "Occurences";
-export type WordFormCreationAttributes = Optional<WordFormAttributes, WordFormOptionalAttributes>;
-export type WordFormPlain = {
-  [K in keyof WordFormAttributes]: WordFormAttributes[K];
-};
+export class WordForm extends Model<WordFormAttributes> implements WordFormAttributes {
+  declare WordFormID: WordFormAttributes["WordFormID"];
+  declare PlainText: WordFormAttributes["PlainText"];
+  declare PhoneticText: WordFormAttributes["PhoneticText"];
+  declare StemText: WordFormAttributes["StemText"];
+  declare Occurences: WordFormAttributes["Occurences"];
 
-export class WordForm extends Model<WordFormAttributes, WordFormCreationAttributes> implements WordFormAttributes {
-  WordFormID!: number;
-  PlainText!: string;
-  PhoneticText!: string;
-  StemText!: string;
-  Occurences!: number;
-
-  static initModel(sequelize: Sequelize.Sequelize): typeof WordForm {
-    return WordForm.init(
+  static initModel(sequelize: Sequelize.Sequelize) {
+    WordForm.init(
       {
         WordFormID: {
           type: DataTypes.MEDIUMINT.UNSIGNED,
@@ -58,8 +53,5 @@ export class WordForm extends Model<WordFormAttributes, WordFormCreationAttribut
         timestamps: false,
       }
     );
-  }
-  format(): WordFormPlain {
-    return { ...this.get() };
   }
 }
