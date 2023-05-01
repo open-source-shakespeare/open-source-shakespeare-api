@@ -32,7 +32,11 @@ export async function getParagraphById(id: ParagraphId): Promise<Paragraph> {
 
 export async function searchParagraphs(term: string, workId?: string): Promise<Paragraph[]> {
   try {
-    const matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}')`);
+    let matchAgainst = {};
+
+    if (term) {
+      matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}')`);
+    }
 
     const where = {
       [Op.and]: [matchAgainst, workId ? { workId } : {}],
