@@ -1,14 +1,9 @@
 import express from "express";
-import {
-  handleGetCharacters,
-  handleGetCharacterById,
-  handleGetCharactersByName,
-} from "../controllers/character-controller";
+import { handleGetCharacters, handleGetCharacterById } from "../controllers/character-controller";
 
 const router = express.Router();
 
 router.get("/", handleGetCharacters);
 router.get("/:id", handleGetCharacterById);
-router.get("/name/:name", handleGetCharactersByName);
 
 export { router as characterRouter };
