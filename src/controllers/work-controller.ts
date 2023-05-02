@@ -6,7 +6,7 @@ export async function handleGetWorks(req: Request, res: Response, next: NextFunc
   try {
     const { title, genre, date } = req.query;
     const parsedDate = parseInt(date as string);
-    if (isNaN(parsedDate)) throw new BadRequestError("Please enter a number");
+    if (date && isNaN(parsedDate)) throw new BadRequestError("Please enter a number");
     const works = await getWorks(title as string, genre as string, parsedDate as number);
     res.json(works);
   } catch (e) {
