@@ -1,9 +1,18 @@
 import { Request, Response, NextFunction } from "express";
-import { getCharactersByName, getCharacterById, getCharacters } from "../actions/character-actions";
+import { getCharacterById, getCharacters } from "../actions/character-actions";
+import { BadRequestError } from "../util/errors";
 
-export async function handleGetCharacters(_: Request, res: Response, next: NextFunction) {
+export async function handleGetCharacters(req: Request, res: Response, next: NextFunction) {
   try {
-    const characters = await getCharacters();
+    const { name } = req.query;
+    let parsedName;
+    if (name) {
+      if (typeof name !== "string") {
+        throw new BadRequestError("Please enter a string");
+      }
+      parsedName = name;
+    }
+    const characters = await getCharacters(parsedName as string);
     res.json(characters);
   } catch (e) {
     next(e);
@@ -14,16 +23,6 @@ export async function handleGetCharacterById(req: Request, res: Response, next: 
   try {
     const { id } = req.params;
     const character = await getCharacterById(id);
-    res.json(character);
-  } catch (e) {
-    next(e);
-  }
-}
-
-export async function handleGetCharactersByName(req: Request, res: Response, next: NextFunction) {
-  try {
-    const { name } = req.params;
-    const character = await getCharactersByName(name);
     res.json(character);
   } catch (e) {
     next(e);
