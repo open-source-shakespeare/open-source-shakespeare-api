@@ -13,7 +13,7 @@ export async function handleGetCharacters(req: Request, res: Response, next: Nex
       parsedName = name;
     }
     const characters = await getCharacters(parsedName as string);
-    res.json(characters);
+    res.json({ data: characters });
   } catch (e) {
     next(e);
   }
@@ -23,7 +23,7 @@ export async function handleGetCharacterById(req: Request, res: Response, next: 
   try {
     const { id } = req.params;
     const character = await getCharacterById(id);
-    res.json(character);
+    res.json({ data: character });
   } catch (e) {
     next(e);
   }

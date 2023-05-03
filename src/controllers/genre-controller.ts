@@ -13,7 +13,7 @@ export async function handleGetGenres(req: Request, res: Response, next: NextFun
       parsedName = name;
     }
     const genres = await getGenres(parsedName as string);
-    res.json(genres);
+    res.json({ data: genres });
   } catch (e) {
     next(e);
   }
@@ -23,7 +23,7 @@ export async function handleGetGenreById(req: Request, res: Response, next: Next
   try {
     const { id } = req.params;
     const genre = await getGenreById(id);
-    res.json(genre);
+    res.json({ data: genre });
   } catch (e) {
     next(e);
   }

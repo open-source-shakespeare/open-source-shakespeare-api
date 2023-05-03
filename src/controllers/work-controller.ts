@@ -8,7 +8,7 @@ export async function handleGetWorks(req: Request, res: Response, next: NextFunc
     const parsedDate = parseInt(date as string);
     if (date && isNaN(parsedDate)) throw new BadRequestError("Please enter a number");
     const works = await getWorks(title as string, genre as string, parsedDate as number);
-    res.json(works);
+    res.json({ data: works });
   } catch (e) {
     next(e);
   }
@@ -18,7 +18,7 @@ export async function handleGetWorkById(req: Request, res: Response, next: NextF
   try {
     const { id } = req.params;
     const work = await getWorkById(id, "paragraphs" in req.query, "chapters" in req.query);
-    res.json(work);
+    res.json({ data: work });
   } catch (e) {
     next(e);
   }

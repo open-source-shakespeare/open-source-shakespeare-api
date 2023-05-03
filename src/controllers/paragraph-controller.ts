@@ -6,7 +6,7 @@ export async function handleGetParagraphs(req: Request, res: Response, next: Nex
   try {
     const { term, workId } = req.query;
     const paragraphs = await getParagraphs(term as string, workId as string);
-    res.json(paragraphs);
+    res.json({ data: paragraphs });
   } catch (e) {
     next(e);
   }
@@ -17,7 +17,7 @@ export async function handleGetParagraphById(req: Request, res: Response, next: 
     const id = parseInt(req.params.id);
     if (isNaN(id)) throw new BadRequestError("Please enter a number");
     const paragraph = await getParagraphById(id);
-    res.json(paragraph);
+    res.json({ data: paragraph });
   } catch (e) {
     next(e);
   }
