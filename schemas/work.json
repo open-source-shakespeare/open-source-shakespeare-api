@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "WorkID": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "LongTitle": {
+          "type": "string"
+        },
+        "ShortTitle": {
+          "type": "string"
+        },
+        "Date": {
+          "type": "number"
+        },
+        "GenreType": {
+          "type": "string"
+        },
+        "Notes": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "data": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": ["type", "data"]
+        },
+        "Source": {
+          "type": "string"
+        },
+        "TotalWords": {
+          "type": "number"
+        },
+        "TotalParagraphs": {
+          "type": "number"
+        },
+        "Paragraphs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "WorkID": {
+                "type": "string"
+              },
+              "ParagraphID": {
+                "type": "number"
+              },
+              "ParagraphNum": {
+                "type": "number"
+              },
+              "CharID": {
+                "type": "string"
+              },
+              "PlainText": {
+                "type": "string"
+              },
+              "PhoneticText": {
+                "type": "string"
+              },
+              "StemText": {
+                "type": "string"
+              },
+              "ParagraphType": {
+                "type": "string"
+              },
+              "Section": {
+                "type": "number"
+              },
+              "Chapter": {
+                "type": "number"
+              },
+              "CharCount": {
+                "type": "number"
+              },
+              "WordCount": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "WorkID",
+              "ParagraphID",
+              "ParagraphNum",
+              "CharID",
+              "PlainText",
+              "ParagraphType",
+              "Section",
+              "Chapter",
+              "CharCount",
+              "WordCount"
+            ]
+          }
+        },
+        "Chapters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "WorkID": {
+                "type": "string"
+              },
+              "ChapterID": {
+                "type": "number"
+              },
+              "Section": {
+                "type": "number"
+              },
+              "Chapter": {
+                "type": "number"
+              },
+              "Description": {
+                "type": "string"
+              }
+            },
+            "required": ["WorkID", "ChapterID", "Section", "Chapter", "Description"]
+          }
+        }
+      },
+      "required": ["WorkID", "Title", "LongTitle", "Date", "GenreType", "Notes", "Source"]
+    }
+  },
+  "required": ["data"]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for chapters",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "WorkID": {
+            "type": "string"
+          },
+          "ChapterID": {
+            "type": "number"
+          },
+          "Section": {
+            "type": "number"
+          },
+          "Chapter": {
+            "type": "number"
+          },
+          "Description": {
+            "type": "string"
+          }
+        },
+        "required": ["WorkID", "ChapterID", "Section", "Chapter", "Description"]
+      }
+    }
+  },
+  "required": ["data"]
+}

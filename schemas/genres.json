@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "GenreType": {
+            "type": "string"
+          },
+          "GenreName": {
+            "type": "string"
+          }
+        },
+        "required": ["GenreType", "GenreName"]
+      }
+    }
+  },
+  "required": ["data"]
+}

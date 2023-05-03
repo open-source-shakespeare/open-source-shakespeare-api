@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for character",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "CharID": {
+          "type": "string"
+        },
+        "CharName": {
+          "type": "string"
+        },
+        "Abbrev": {
+          "type": "string"
+        },
+        "Works": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "SpeechCount": {
+          "type": "number"
+        }
+      },
+      "required": ["CharID", "CharName", "Works", "Description"]
+    }
+  },
+  "required": ["data"]
+}

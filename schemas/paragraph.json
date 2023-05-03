@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "WorkID": {
+          "type": "string"
+        },
+        "ParagraphID": {
+          "type": "number"
+        },
+        "ParagraphNum": {
+          "type": "number"
+        },
+        "CharID": {
+          "type": "string"
+        },
+        "PlainText": {
+          "type": "string"
+        },
+        "PhoneticText": {
+          "type": "string"
+        },
+        "StemText": {
+          "type": "string"
+        },
+        "ParagraphType": {
+          "type": "string"
+        },
+        "Section": {
+          "type": "number"
+        },
+        "Chapter": {
+          "type": "number"
+        },
+        "CharCount": {
+          "type": "number"
+        },
+        "WordCount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "WorkID",
+        "ParagraphID",
+        "ParagraphNum",
+        "CharID",
+        "PlainText",
+        "ParagraphType",
+        "Section",
+        "Chapter",
+        "CharCount",
+        "WordCount"
+      ]
+    }
+  },
+  "required": ["data"]
+}
