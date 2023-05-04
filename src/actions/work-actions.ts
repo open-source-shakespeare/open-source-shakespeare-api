@@ -28,7 +28,7 @@ export async function getWorks(title?: string, genre?: string, date?: number): P
     if (date) {
       where.date = date;
     }
-    const works = await Work.findAll({ where, include: [genreInclude] });
+    const works = await Work.findAll({ where, include: genre ? [genreInclude] : [] });
     if (!works) {
       throw new NotFoundError("Work not found");
     }
@@ -43,31 +43,14 @@ export async function getWorks(title?: string, genre?: string, date?: number): P
   }
 }
 
-export async function getWorkOutlineById(id: WorkId): Promise<Work> {
-  try {
-    const work = await Work.findByPk(id);
-    if (!work) {
-      throw new NotFoundError("Work not found");
-    }
-    return work;
-  } catch (e) {
-    if (e instanceof NotFoundError) {
-      throw e;
-    } else {
-      const errorMessage = e instanceof Error ? e.message : "Unknown database error";
-      throw new DatabaseError(errorMessage);
-    }
-  }
-}
-
 export async function getWorkById(workId: WorkId, paragraphs?: boolean, chapters?: boolean): Promise<Work> {
   try {
-    const include = [];
     const where = {
       WorkId: {
         [Op.eq]: workId,
       },
     };
+    const include = [];
     if (paragraphs) {
       include.push({
         model: Paragraph,
@@ -109,35 +92,3 @@ export async function getWorkById(workId: WorkId, paragraphs?: boolean, chapters
     }
   }
 }
-
-// export async function getWorksByGenre(genre: string): Promise<Work[]> {
-//   try {
-//     const works = await Work.findAll({
-//       include: [
-//         {
-//           model: Genre,
-//           as: "Genre",
-//           where: genre
-//             ? {
-//                 GenreName: {
-//                   [Op.eq]: genre,
-//                 },
-//               }
-//             : undefined,
-//           required: genre ? true : false,
-//         },
-//       ],
-//     });
-//     if (!works) {
-//       throw new NotFoundError("Work not found");
-//     }
-//     return works;
-//   } catch (e) {
-//     if (e instanceof NotFoundError) {
-//       throw e;
-//     } else {
-//       const errorMessage = e instanceof Error ? e.message : "Unknown database error";
-//       throw new DatabaseError(errorMessage);
-//     }
-//   }
-// }
