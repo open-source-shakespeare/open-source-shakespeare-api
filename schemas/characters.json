@@ -15,7 +15,7 @@
             "type": "string"
           },
           "Abbrev": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "Works": {
             "type": "string"
