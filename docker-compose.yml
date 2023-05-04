@@ -29,7 +29,7 @@ services:
       - ./db-init-scripts/oss-db-full.sql:/docker-entrypoint-initdb.d/oss-db-full.sql
     healthcheck:
       test: "mysqladmin ping -h 127.0.0.1"
-      interval: 20s
+      interval: 10s
       start_period: 30s
       timeout: 5s
       retries: 5
