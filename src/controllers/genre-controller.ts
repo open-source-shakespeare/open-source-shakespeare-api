@@ -4,25 +4,25 @@ import { BadRequestError } from "../util/errors";
 
 export async function handleGetGenres(req: Request, res: Response, next: NextFunction) {
   try {
-    const { name } = req.query;
-    let parsedName;
-    if (name) {
-      if (typeof name !== "string") {
+    const { genre } = req.query;
+    let parsedGenre;
+    if (genre) {
+      if (typeof genre !== "string") {
         throw new BadRequestError("Please enter a string");
       }
-      parsedName = name;
+      parsedGenre = genre;
     }
-    const genres = await getGenres(parsedName as string);
+    const genres = await getGenres(parsedGenre as string);
     res.json({ data: genres });
   } catch (e) {
     next(e);
   }
 }
 
-export async function handleGetGenreById(req: Request, res: Response, next: NextFunction) {
+export async function handleGetGenreByGenreType(req: Request, res: Response, next: NextFunction) {
   try {
-    const { id } = req.params;
-    const genre = await getGenreById(id);
+    const { genreType } = req.params;
+    const genre = await getGenreById(genreType);
     res.json({ data: genre });
   } catch (e) {
     next(e);

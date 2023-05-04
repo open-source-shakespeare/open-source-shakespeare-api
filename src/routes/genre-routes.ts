@@ -1,9 +1,9 @@
 import express from "express";
-import { handleGetGenres, handleGetGenreById } from "../controllers/genre-controller";
+import { handleGetGenres, handleGetGenreByGenreType } from "../controllers/genre-controller";
 
 const router = express.Router();
 
 router.get("/", handleGetGenres);
-router.get("/:id", handleGetGenreById);
+router.get("/:genreType", handleGetGenreByGenreType);
 
 export { router as genreRouter };
