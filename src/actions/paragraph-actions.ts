@@ -3,12 +3,18 @@ import { Paragraph, ParagraphId } from "../models/Paragraph";
 import { NotFoundError, DatabaseError } from "../util/errors";
 import { Work } from "../models/Work";
 
-export async function getParagraphs(term: string, workId?: string): Promise<Paragraph[]> {
+export async function getParagraphs(terms: string[], workId?: string): Promise<Paragraph[]> {
   try {
     let matchAgainst = {};
-
-    if (term) {
-      matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}')`);
+    let term;
+    if (typeof terms === "string") {
+      term = `"${terms}"`;
+    } else {
+      term = terms.map((t, i) => (i === 0 ? `+"${t}"` : `"${t}"`)).join(" +");
+    }
+    console.log(term);
+    if (terms) {
+      matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}' IN BOOLEAN MODE)`);
     }
 
     const where = {

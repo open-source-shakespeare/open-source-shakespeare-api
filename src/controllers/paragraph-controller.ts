@@ -5,7 +5,7 @@ import { BadRequestError } from "../util/errors";
 export async function handleGetParagraphs(req: Request, res: Response, next: NextFunction) {
   try {
     const { term, workId } = req.query;
-    const paragraphs = await getParagraphs(term as string, workId as string);
+    const paragraphs = await getParagraphs(term as string[], workId as string);
     res.json({ data: paragraphs });
   } catch (e) {
     next(e);
