@@ -3,13 +3,13 @@ import { Paragraph, ParagraphId } from "../models/Paragraph";
 import { NotFoundError, DatabaseError } from "../util/errors";
 import { Work } from "../models/Work";
 
-export async function getParagraphs(terms: string[], workId?: string): Promise<Paragraph[]> {
+export async function getParagraphs(terms: string[], workId?: string, charId?: string): Promise<Paragraph[]> {
   try {
     let matchAgainst = {};
     let term;
-    if (typeof terms === "string") {
+    if (terms && typeof terms === "string") {
       term = `"${terms}"`;
-    } else {
+    } else if (terms && typeof terms === "object") {
       term = terms.map((t, i) => (i === 0 ? `+"${t}"` : `"${t}"`)).join(" +");
     }
     console.log(term);
@@ -18,7 +18,7 @@ export async function getParagraphs(terms: string[], workId?: string): Promise<P
     }
 
     const where = {
-      [Op.and]: [matchAgainst, workId ? { workId } : {}],
+      [Op.and]: [matchAgainst, workId ? { workId } : {}, charId ? { charId } : {}],
     };
 
     const paragraphs = await Paragraph.findAll({
