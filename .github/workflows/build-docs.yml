@@ -15,7 +15,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
+          token: ${{secrets.BOT_TOKEN}}
       - name: Build postman docs
         run: |
           mkdir -p docs
