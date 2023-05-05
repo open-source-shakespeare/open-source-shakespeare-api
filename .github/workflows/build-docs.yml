@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        token: ${{secrets.BOT_TOKEN}}
       - name: Build postman docs
         run: |
           mkdir -p docs
@@ -22,8 +23,8 @@ jobs:
       - name: commit docs
         if: ${{env.changes}}
         run: |
-          git config --global user.email "29102292+mghmay@users.noreply.github.com"
-          git config --global user.name "docs-bot"
+          git config --global user.email "mghmay+matbot@gmail.com"
+          git config --global user.name "mat-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
           git push
