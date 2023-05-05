@@ -14,7 +14,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          token: ${{secrets.BOT_TOKEN}}'
+          token: ${{secrets.DOCS_BOT_TOKEN }}'
+          fetch-depth: 0
       - name: Build postman docs
         run: |
           mkdir -p docs
