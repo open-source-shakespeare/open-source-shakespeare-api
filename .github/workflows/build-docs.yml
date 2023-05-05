@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
       - name: Build postman docs
         run: |
           mkdir docs
