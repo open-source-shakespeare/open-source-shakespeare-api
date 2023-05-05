@@ -9,6 +9,7 @@ jobs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       changes: false
     steps:
       - name: Check out repository code
@@ -20,8 +21,6 @@ jobs:
       - name: check if changes
         run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
       - name: commit docs
-        with:
-          repo-token: ${{ secrets.BOT_TOKEN }}
         if: ${{env.changes}}
         run: |
           git config --global user.email "mghmay+matbot@gmail.com"
