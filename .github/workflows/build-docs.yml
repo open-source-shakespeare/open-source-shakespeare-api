@@ -6,7 +6,7 @@ on:
     branches: [main]
 jobs:
   Build-docs:
-    if: github.repository_owner == 'mghmay'
+    if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
     env:
       changes: false
