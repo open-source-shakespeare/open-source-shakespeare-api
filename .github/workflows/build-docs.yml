@@ -9,12 +9,14 @@ jobs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
     with:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.BOT_TOKEN }}
     env:
       changes: false
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          repo-token: ${{secrets.BOT_TOKEN}}
       - name: Build postman docs
         run: |
           mkdir -p docs
@@ -25,7 +27,7 @@ jobs:
         if: ${{env.changes}}
         run: |
           git config --global user.email "mghmay+matbot@gmail.com"
-          git config --global user.name "mghmay-bot"
+          git config --global user.name "mat-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
           git push
