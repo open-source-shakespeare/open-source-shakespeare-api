@@ -1,0 +1,28 @@
+name: build-docs
+run-name: ${{ github.actor }} is building documentation
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  Build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Build postman docs
+        run: |
+          mkdir docs
+          ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
+      - name: commit docs
+        run: |
+          git config --global user.email "29102292+mghmay@users.noreply.github.com"
+          git config --global user.name "docs-bot"
+          git add docs
+          git commit -m "Make docs"
+          git push origin HEAD:${{ github.head_ref }}
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
