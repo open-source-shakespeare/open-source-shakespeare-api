@@ -17,7 +17,6 @@ jobs:
           repository: open-source-shakespeare/open-source-shakespeare-api
           ref: main
           token: ${{ secrets.DOCS_BOT_TOKEN }}
-          persist-credentials: false
           fetch-depth: 0
       - name: Build postman docs
         run: |
