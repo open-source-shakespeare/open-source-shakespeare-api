@@ -14,7 +14,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          repository: open-source-shakespeare/open-source-shakespeare-api
+          repository: https://github.com/open-source-shakespeare/open-source-shakespeare-api
           ref: main
           token: ${{ secrets.DOCS_BOT_TOKEN }}'
           fetch-depth: 0
