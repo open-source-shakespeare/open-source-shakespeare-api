@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with: ${{secrets.BOT_TOKEN}}
+        with:
+          repo-token: ${{secrets.BOT_TOKEN}}
       - name: Build postman docs
         run: |
           mkdir -p docs
