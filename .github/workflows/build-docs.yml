@@ -2,17 +2,16 @@ name: build-docs
 run-name: ${{ github.actor }} is building documentation
 on:
   workflow_dispatch:
-  pull_request:
+  push: [main]
 jobs:
   Build-docs:
+    if: github.repository_owner == 'mghmay'
     runs-on: ubuntu-latest
     env:
       changes: false
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref || 'main' }}
       - name: Build postman docs
         run: |
           mkdir -p docs
