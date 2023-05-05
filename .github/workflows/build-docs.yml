@@ -2,37 +2,31 @@ name: build-docs
 run-name: ${{ github.actor }} is building documentation
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
+  push: [main]
 jobs:
-  generate-docs:
+  Build-docs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
     env:
       changes: false
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
-        with:
-          repository: open-source-shakespeare/open-source-shakespeare-api
-          ref: main
-          token: ${{ secrets.DOCS_BOT_TOKEN }}'
-          persist-credentials: false
-          fetch-depth: 0
+        uses: actions/checkout@v3
       - name: Build postman docs
         run: |
           mkdir -p docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: check if changes
         run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
-      - name: commit files
+        continue-on-error: true
+      - name: commit docs
         if: ${{env.changes}}
         run: |
-          git config --local user.email "mghmay+matbot@gmail.com"
-          git config --local user.name "mat-bot"
+          git config --global user.email "29102292+mghmay@users.noreply.github.com"
+          git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
           git push
       - name: exit
         if: ${{!env.changes}}
-        run: echo "Exiting documentation creation without changes."
+        run: echo "Exiting document creation without changes."
