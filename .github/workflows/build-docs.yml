@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
 jobs:
-  Build-docs:
+  generate-docs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
     env:
@@ -13,18 +13,20 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with: ${{secrets.BOT_TOKEN}}
+        with:
+          token: ${{secrets.BOT_TOKEN}}'
+          fetch-depth: 0
       - name: Build postman docs
         run: |
           mkdir -p docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: check if changes
         run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
-      - name: commit docs
+      - name: commit files
         if: ${{env.changes}}
         run: |
-          git config --global user.email "mghmay+matbot@gmail.com"
-          git config --global user.name "mat-bot"
+          git config --local user.email "mghmay+matbot@gmail.com"
+          git config --local user.name "mat-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
           git push
