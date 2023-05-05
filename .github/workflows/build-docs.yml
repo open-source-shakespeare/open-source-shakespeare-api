@@ -8,7 +8,7 @@ jobs:
   Build-docs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
-    repo-token: ${{secrets.BOT_TOKEN}}
+    token: ${{secrets.BOT_TOKEN}}
     env:
       changes: false
     steps:
