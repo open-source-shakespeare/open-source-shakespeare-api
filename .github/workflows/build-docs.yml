@@ -25,7 +25,7 @@ jobs:
           mkdir -p docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: check if changes
-        run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
+        run: git diff ./postman/collection.json | grep -q ^ && echo "changes=true" >> "$GITHUB_ENV"
       - name: commit files
         if: ${{env.changes}}
         run: |
