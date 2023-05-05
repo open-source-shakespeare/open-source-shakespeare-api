@@ -14,6 +14,11 @@ jobs:
         run: |
           mkdir docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
+      - name: commit docs
+        run: |
+          git add docs
+          git commit -m "Make docs"
+          git push
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
