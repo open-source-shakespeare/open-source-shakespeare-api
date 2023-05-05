@@ -11,7 +11,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || "main" }}
       - name: Build postman docs
         run: |
           mkdir -p docs
@@ -22,6 +22,4 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
-          git push origin $ref
-        env:
-          ref: HEAD:${{ github.head_ref }}
+          git push origin ${{ github.head_ref || "main" }}
