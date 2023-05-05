@@ -27,7 +27,7 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
-          git push origin ${{ github.head_ref || 'main' }}
+          git push
       - name: exit
         if: ${{!env.changes}}
         run: echo "Exiting document creation without changes."
