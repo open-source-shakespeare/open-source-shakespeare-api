@@ -1,19 +1,17 @@
 name: build-docs
 run-name: ${{ github.actor }} is building documentation
 on:
-  pull_request:
-  push:
-    branches: [main]
+  workflow_dispatch:
+  push: [main]
 jobs:
   Build-docs:
+    if: github.repository_owner == 'mghmay'
     runs-on: ubuntu-latest
     env:
       changes: false
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
       - name: Build postman docs
         run: |
           mkdir -p docs
@@ -28,7 +26,7 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
-          git push origin HEAD:${{ github.head_ref }}
+          git push
       - name: exit
         if: ${{!env.changes}}
         run: echo "Exiting document creation without changes."
