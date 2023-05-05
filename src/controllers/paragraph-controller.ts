@@ -9,7 +9,7 @@ export async function handleGetParagraphs(req: Request, res: Response, next: Nex
       term as string[],
       workId as string,
       charId as string,
-      "work" in req.query
+      "work_info" in req.query
     );
     res.json({ data: paragraphs });
   } catch (e) {

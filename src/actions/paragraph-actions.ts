@@ -7,13 +7,13 @@ export async function getParagraphs(
   terms: string[],
   workId?: string,
   charId?: string,
-  work?: boolean
+  workInfo?: boolean
 ): Promise<Paragraph[]> {
   try {
     let matchAgainst = {};
     let term;
     const include = [];
-    if (work) {
+    if (workInfo) {
       include.push({
         model: Work,
         as: "Work",
