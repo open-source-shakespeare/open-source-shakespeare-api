@@ -22,7 +22,7 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit -m "Make docs"
-          git push
+          git push origin HEAD:$GITHUB_REF_NAME
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
