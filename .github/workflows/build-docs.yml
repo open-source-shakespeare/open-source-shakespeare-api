@@ -7,6 +7,8 @@ on:
 jobs:
   Build-docs:
     runs-on: ubuntu-latest
+    env:
+      changes: false
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -16,12 +18,17 @@ jobs:
         run: |
           mkdir -p docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
+      - name: check if changes
+        run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
+        continue-on-error: true
       - name: commit docs
+        if: changes
         run: |
           git config --global user.email "29102292+mghmay@users.noreply.github.com"
           git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
-          git push origin $ref
-        env:
-          ref: HEAD:${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref }}
+      - name: exit
+        if: !changes
+        run: echo "Exiting document creation without changes."
