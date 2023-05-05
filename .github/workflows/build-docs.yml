@@ -18,6 +18,7 @@ jobs:
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: check if changes
         run: git diff | grep -q ^ || exit 1
+        continue-on-error: true
       - name: commit docs
         if: ${{ success() }}
         run: |
