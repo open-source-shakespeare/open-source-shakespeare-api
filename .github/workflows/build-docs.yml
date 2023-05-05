@@ -1,6 +1,7 @@
 name: build-docs
 run-name: ${{ github.actor }} is building documentation
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: [main]
