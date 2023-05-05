@@ -12,6 +12,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build postman docs
         run: |
+          mkdir docs
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: List files in the repository
         run: |
