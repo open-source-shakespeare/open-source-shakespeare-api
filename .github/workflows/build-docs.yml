@@ -22,4 +22,6 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit --allow-empty -m "Make docs"
-          git push origin HEAD:${{ github.head_ref }}
+          git push origin $ref
+        env:
+          ref: HEAD:${{ github.head_ref }}
