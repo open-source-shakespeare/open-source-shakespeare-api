@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths-ignore:
+      - "docs/**"
 jobs:
   generate-docs:
     if: github.repository_owner == 'open-source-shakespeare'
