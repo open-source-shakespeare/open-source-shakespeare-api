@@ -2,7 +2,8 @@ name: build-docs
 run-name: ${{ github.actor }} is building documentation
 on:
   workflow_dispatch:
-  push: [main]
+  push:
+    branches: [main]
 jobs:
   Build-docs:
     if: github.repository_owner == 'mghmay'
@@ -18,7 +19,6 @@ jobs:
           ./postman/postmanerator --output=./docs/index.html --collection=./postman/collection.json
       - name: check if changes
         run: git diff | grep -q ^ || echo "changes=true" >> "$GITHUB_ENV"
-        continue-on-error: true
       - name: commit docs
         if: ${{env.changes}}
         run: |
@@ -29,4 +29,4 @@ jobs:
           git push
       - name: exit
         if: ${{!env.changes}}
-        run: echo "Exiting document creation without changes."
+        run: echo "Exiting documentation creation without changes."
