@@ -10,9 +10,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Get branch names
-        id: branch-name
-        uses: tj-actions/branch-names@v6
+        with:
+          ref: ${{ github.head_ref }}
       - name: Build postman docs
         run: |
           mkdir docs
@@ -23,7 +22,7 @@ jobs:
           git config --global user.name "docs-bot"
           git add docs
           git commit -m "Make docs"
-          git push origin HEAD:${{ steps.branch-name.outputs.current_branch }}
+          git push origin HEAD:${{ github.head_ref }}
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
