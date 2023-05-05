@@ -8,13 +8,14 @@ jobs:
   Build-docs:
     if: github.repository_owner == 'open-source-shakespeare'
     runs-on: ubuntu-latest
+
     env:
       changes: false
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
         with:
-          repo-token: ${{secrets.BOT_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.BOT_TOKEN}}
       - name: Build postman docs
         run: |
           mkdir -p docs
