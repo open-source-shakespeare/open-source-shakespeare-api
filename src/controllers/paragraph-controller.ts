@@ -8,6 +8,8 @@ export async function handleGetParagraphs(req: Request, res: Response, next: Nex
     let parsedWorkInfo = false;
     if ((workInfo as string).toLowerCase() === "true") {
       parsedWorkInfo = true;
+    } else if ((workInfo as string).toLowerCase() !== "false") {
+      throw new BadRequestError("Work info should be true, false or not present.");
     }
     const paragraphs = await getParagraphs(
       term as string[],

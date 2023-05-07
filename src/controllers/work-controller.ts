@@ -22,9 +22,13 @@ export async function handleGetWorkById(req: Request, res: Response, next: NextF
     let parsedChapters = false;
     if ((paragraphs as string).toLowerCase() === "true") {
       parsedParagraphs = true;
+    } else if ((paragraphs as string).toLowerCase() !== "false") {
+      throw new BadRequestError("Paragraphs should be true, false or not present.");
     }
     if ((chapters as string).toLowerCase() === "true") {
       parsedChapters = true;
+    } else if ((chapters as string).toLowerCase() !== "false") {
+      throw new BadRequestError("Chapters should be true, false or not present.");
     }
     const work = await getWorkById(id, parsedParagraphs, parsedChapters);
     res.json({ data: work });

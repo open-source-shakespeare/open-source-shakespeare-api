@@ -4,15 +4,11 @@ import { BadRequestError } from "../util/errors";
 
 export async function handleGetGenres(req: Request, res: Response, next: NextFunction) {
   try {
-    const { genre } = req.query;
-    let parsedGenre;
-    if (genre) {
-      if (typeof genre !== "string") {
-        throw new BadRequestError("Please enter a string");
-      }
-      parsedGenre = genre;
-    }
-    const genres = await getGenres(parsedGenre as string);
+    const { genreName } = req.query;
+    let parsedGenreName;
+    if (genreName && typeof genreName !== "string") throw new BadRequestError("Please enter a string");
+    else parsedGenreName = genreName;
+    const genres = await getGenres(parsedGenreName as string);
     res.json({ data: genres });
   } catch (e) {
     next(e);
