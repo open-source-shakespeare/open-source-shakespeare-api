@@ -28,7 +28,6 @@
                 "type": "text/javascript"
               }
             },
-
             {
               "listen": "prerequest",
               "script": {
