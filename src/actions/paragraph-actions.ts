@@ -24,7 +24,7 @@ export async function getParagraphs(
     } else if (terms && typeof terms === "object") {
       term = terms.map((t, i) => (i === 0 ? `+"${t}"` : `"${t}"`)).join(" +");
     }
-    console.log(term);
+
     if (terms) {
       matchAgainst = literal(`MATCH(PlainText) AGAINST('${term}' IN BOOLEAN MODE)`);
     }

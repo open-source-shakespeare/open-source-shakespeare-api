@@ -17,7 +17,16 @@ export async function handleGetWorks(req: Request, res: Response, next: NextFunc
 export async function handleGetWorkById(req: Request, res: Response, next: NextFunction) {
   try {
     const { id } = req.params;
-    const work = await getWorkById(id, "paragraphs" in req.query, "chapters" in req.query);
+    const { paragraphs, chapters } = req.query;
+    let parsedParagraphs = false;
+    let parsedChapters = false;
+    if ((paragraphs as string).toLowerCase() === "true") {
+      parsedParagraphs = true;
+    }
+    if ((chapters as string).toLowerCase() === "true") {
+      parsedChapters = true;
+    }
+    const work = await getWorkById(id, parsedParagraphs, parsedChapters);
     res.json({ data: work });
   } catch (e) {
     next(e);
