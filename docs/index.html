@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Endpoints</title>
+    <title>Open Source Shakespeare API</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
@@ -276,14 +276,15 @@ pre code {
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Endpoints</h1>
+                <h1>Open Source Shakespeare API</h1>
 
                 <h2 id="doc-general-notes">
                     General notes
                     <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
                 </h2>
 
-                
+                <p>This API provides access to the works of Shakespeare, including plays, sonnets, and other works. The data is sourced from the public domain works of Shakespeare and is provided in a structured format for easy consumption by developers. Currently it only runs on localhost, we are looking into hosting this API.</p>
+
 
                 
 
@@ -303,7 +304,8 @@ pre code {
                         <a href="#folder-chapters"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Access all the chapters of the works of Shakespeare.</p>
+</div>
 
                     
                     
@@ -314,7 +316,8 @@ pre code {
                             <a href="#request-chapters-chapters"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get all</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -345,7 +348,8 @@ Host: </code></pre>
                             <a href="#request-chapters-chapters-chapterid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get by chapterId</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -378,7 +382,8 @@ Host: </code></pre>
                         <a href="#folder-characters"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Access all the characters of the works of Shakespeare.</p>
+</div>
 
                     
                     
@@ -389,7 +394,8 @@ Host: </code></pre>
                             <a href="#request-characters-characters"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get all with optional name query parameter</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -420,7 +426,8 @@ Host: </code></pre>
                             <a href="#request-characters-characters-charid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get by charId</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -453,7 +460,8 @@ Host: </code></pre>
                         <a href="#folder-paragraphs"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Access all the paragraphs of the works of Shakespeare.</p>
+</div>
 
                     
                     
@@ -464,7 +472,8 @@ Host: </code></pre>
                             <a href="#request-paragraphs-paragraphs"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>This is the endpoint you should use if you want to return the paragraph containing any words or phrases. Note you can include as many words or phrases as you like by adding extra terms. This matches by the whole word or phrase. You can also return all the paragraphs by workId or charId. All of these endpoint paragraphs can optionally include the details about the work by including the workInfo=true parameter, if workInfo is set to false , or isn&rsquo;t included, the work info will not be included. It&rsquo;s currently in beta and functionality will be extended in v2.</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -495,7 +504,8 @@ Host: </code></pre>
                             <a href="#request-paragraphs-paragraphs-paragraphid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get paragraph by paragraphId</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -528,7 +538,8 @@ Host: </code></pre>
                         <a href="#folder-genres"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Access all the genres of the works of Shakespeare, this functionality will be reassessed in v2.</p>
+</div>
 
                     
                     
@@ -539,7 +550,8 @@ Host: </code></pre>
                             <a href="#request-genres-genres"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get all genres and their genreTypes. with optiona; genreName parameter to return genreType. genreName can be one of the following: comedy, history, tragedy, sonnet or poem.</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -570,7 +582,8 @@ Host: </code></pre>
                             <a href="#request-genres-genres-genretype"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get a genreName by genreType</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -603,7 +616,8 @@ Host: </code></pre>
                         <a href="#folder-quotations"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Get a list of quotations for the works of Shakespeare</p>
+</div>
 
                     
                     
@@ -614,7 +628,8 @@ Host: </code></pre>
                             <a href="#request-quotations-quotations"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get all quotations or get quotations by work. Note that work is slightly different here, it is not workId it is the name of the actual work i.e. &ldquo;The Tempest&rdquo;. It allows for upper or lower case searching</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -623,10 +638,10 @@ Host: </code></pre>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="request-quotations-quotations-example-curl">
-                                    <pre><code class="hljs curl">curl -X GET "{{host}}/quotations?work=macbeth"</code></pre>
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/quotations"</code></pre>
                                 </div>
                                 <div class="tab-pane" id="request-quotations-quotations-example-http">
-                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/quotations?work=macbeth HTTP/1.1
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/quotations HTTP/1.1
 Host: </code></pre>
                                 </div>
                             </div>
@@ -645,7 +660,8 @@ Host: </code></pre>
                             <a href="#request-quotations-quotations-quotationid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get a quotation by quotationId</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -678,7 +694,8 @@ Host: </code></pre>
                         <a href="#folder-wordforms"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Get a list of the most common word forms in the works of Shakespeare.</p>
+</div>
 
                     
                     
@@ -689,7 +706,8 @@ Host: </code></pre>
                             <a href="#request-wordforms-wordforms"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get all word forms</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -720,7 +738,8 @@ Host: </code></pre>
                             <a href="#request-wordforms-wordforms-wordformid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get word form by wordFormId.</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -753,7 +772,8 @@ Host: </code></pre>
                         <a href="#folder-works"><i class="glyphicon glyphicon-link"></i></a>
                     </h3>
 
-                    <div></div>
+                    <div><p>Get a list of all of the works of Shakespeare.</p>
+</div>
 
                     
                     
@@ -764,7 +784,8 @@ Host: </code></pre>
                             <a href="#request-works-works"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get a list of all of the works, this can be sorted by genre, title as all or part of the title, or date as a year.</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
@@ -773,10 +794,10 @@ Host: </code></pre>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="request-works-works-example-curl">
-                                    <pre><code class="hljs curl">curl -X GET "{{host}}/works"</code></pre>
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/works?genre=tragedy&title=an&date=1606"</code></pre>
                                 </div>
                                 <div class="tab-pane" id="request-works-works-example-http">
-                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/works HTTP/1.1
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/works?genre=tragedy&title=an&date=1606 HTTP/1.1
 Host: </code></pre>
                                 </div>
                             </div>
@@ -795,7 +816,8 @@ Host: </code></pre>
                             <a href="#request-works-works-workid"><i class="glyphicon glyphicon-link"></i></a>
                         </h4>
 
-                        <div></div>
+                        <div><p>Get work by work id. This takes the optional query params of chapters (returns the work with all the chapters) and/or paragraphs (returns all of the paragraphs of the work). If paragraphs and chapters are false or not present they will not be returned.</p>
+</div>
 
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
