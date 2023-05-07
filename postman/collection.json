@@ -1,675 +1,600 @@
 {
-	"info": {
-		"_postman_id": "3ec8abdd-27a7-4c2b-aebb-b3532641b8b7",
-		"name": "Open Source Shakespeare API",
-		"description": "This API provides access to the works of Shakespeare, including plays, sonnets, and other works. The data is sourced from the public domain works of Shakespeare and is provided in a structured format for easy consumption by developers. Currently it only runs on localhost, we are looking into hosting this API.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22361139",
-		"_collection_link": "https://cloudy-astronaut-342785.postman.co/workspace/03290aff-1466-4733-8556-9e720a2b747e/collection/22361139-3ec8abdd-27a7-4c2b-aebb-b3532641b8b7?action=share&creator=22361139&source=collection_link"
-	},
-	"item": [
-		{
-			"name": "Chapters",
-			"item": [
-				{
-					"name": "/chapters",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"chapters_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/chapters/",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"chapters",
-								""
-							]
-						},
-						"description": "Get all"
-					},
-					"response": []
-				},
-				{
-					"name": "/chapters/:chapterId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"chapter_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/chapters/24909",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"chapters",
-								"24909"
-							]
-						},
-						"description": "Get by chapterId"
-					},
-					"response": []
-				}
-			],
-			"description": "Access all the chapters of the works of Shakespeare.",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			]
-		},
-		{
-			"name": "Characters",
-			"item": [
-				{
-					"name": "/characters",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"characters_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/characters",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"characters"
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "macbeth",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Get all with optional name query parameter"
-					},
-					"response": []
-				},
-				{
-					"name": "/characters/:charId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"character_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/characters/1player-ham",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"characters",
-								"1player-ham"
-							]
-						},
-						"description": "Get by charId"
-					},
-					"response": []
-				}
-			],
-			"description": "Access all the characters of the works of Shakespeare."
-		},
-		{
-			"name": "Paragraphs",
-			"item": [
-				{
-					"name": "/paragraphs",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"paragraphs_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/paragraphs",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"paragraphs"
-							],
-							"query": [
-								{
-									"key": "term",
-									"value": "angel shall",
-									"disabled": true
-								},
-								{
-									"key": "workId",
-									"value": "macbeth",
-									"disabled": true
-								},
-								{
-									"key": "charId",
-									"value": "Countess-aw",
-									"disabled": true
-								},
-								{
-									"key": "workInfo",
-									"value": "blarg",
-									"disabled": true
-								},
-								{
-									"key": "term",
-									"value": "outrageous fortune",
-									"disabled": true
-								}
-							]
-						},
-						"description": "This is the endpoint you should use if you want to return the paragraph containing any words or phrases. Note you can include as many words or phrases as you like by adding extra terms. This matches by the whole word or phrase. You can also return all the paragraphs by workId or charId. All of these endpoint paragraphs can optionally include the details about the work by including the workInfo=true parameter, if workInfo is set to false , or isn't included, the work info will not be included. It's currently in beta and functionality will be extended in v2."
-					},
-					"response": []
-				},
-				{
-					"name": "/paragraphs/:paragraphId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"paragraph_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/paragraphs/859870",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"paragraphs",
-								"859870"
-							]
-						},
-						"description": "Get paragraph by paragraphId"
-					},
-					"response": []
-				}
-			],
-			"description": "Access all the paragraphs of the works of Shakespeare."
-		},
-		{
-			"name": "Genres",
-			"item": [
-				{
-					"name": "/genres",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"genres_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/genres",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"genres"
-							],
-							"query": [
-								{
-									"key": "genreName",
-									"value": "comedy",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Get all genres and their genreTypes. with optiona; genreName parameter to return genreType. genreName can be one of the following: comedy, history, tragedy, sonnet or poem."
-					},
-					"response": []
-				},
-				{
-					"name": "/genres/:genreType",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"genre_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/genres/c",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"genres",
-								"c"
-							]
-						},
-						"description": "Get a genreName by genreType"
-					},
-					"response": []
-				}
-			],
-			"description": "Access all the genres of the works of Shakespeare, this functionality will be reassessed in v2."
-		},
-		{
-			"name": "Quotations",
-			"item": [
-				{
-					"name": "/quotations",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"quotations_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/quotations",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"quotations"
-							],
-							"query": [
-								{
-									"key": "work",
-									"value": "macbeth",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Get all quotations or get quotations by work. Note that work is slightly different here, it is not workId it is the name of the actual work i.e. \"The Tempest\". It allows for upper or lower case searching"
-					},
-					"response": []
-				},
-				{
-					"name": "/quotations/:quotationId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"quotation_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/quotations/34084923",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"quotations",
-								"34084923"
-							]
-						},
-						"description": "Get a quotation by quotationId"
-					},
-					"response": []
-				}
-			],
-			"description": "Get a list of quotations for the works of Shakespeare"
-		},
-		{
-			"name": "Wordforms",
-			"item": [
-				{
-					"name": "/wordforms",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"wordforms_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/wordforms",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"wordforms"
-							]
-						},
-						"description": "Get all word forms"
-					},
-					"response": []
-				},
-				{
-					"name": "/wordforms/:wordformId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"wordform_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/wordforms/763487",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"wordforms",
-								"763487"
-							]
-						},
-						"description": "Get word form by wordFormId."
-					},
-					"response": []
-				}
-			],
-			"description": "Get a list of the most common word forms in the works of Shakespeare."
-		},
-		{
-			"name": "Works",
-			"item": [
-				{
-					"name": "/works",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"works_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									"\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/works?genre=tragedy&title=an&date=1606",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"works"
-							],
-							"query": [
-								{
-									"key": "genre",
-									"value": "tragedy"
-								},
-								{
-									"key": "title",
-									"value": "an"
-								},
-								{
-									"key": "date",
-									"value": "1606"
-								}
-							]
-						},
-						"description": "Get a list of all of the works, this can be sorted by genre, title as all or part of the title, or date as a year."
-					},
-					"response": []
-				},
-				{
-					"name": "/works/:workId",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"const schema = JSON.parse(pm.variables.get(\"work_schema\"));\r",
-									"\r",
-									"pm.test(\"Has valid schema\", () => {\r",
-									"    pm.response.to.have.jsonSchema(schema);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/works/allswell",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"works",
-								"allswell"
-							],
-							"query": [
-								{
-									"key": "paragraphs",
-									"value": "true",
-									"disabled": true
-								},
-								{
-									"key": "chapters",
-									"value": "false",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Get work by work id. This takes the optional query params of chapters (returns the work with all the chapters) and/or paragraphs (returns all of the paragraphs of the work). If paragraphs and chapters are false or not present they will not be returned."
-					},
-					"response": []
-				}
-			],
-			"description": "Get a list of all of the works of Shakespeare."
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	]
+  "info": {
+    "_postman_id": "3ec8abdd-27a7-4c2b-aebb-b3532641b8b7",
+    "name": "Open Source Shakespeare API",
+    "description": "This API provides access to the works of Shakespeare, including plays, sonnets, and other works. The data is sourced from the public domain works of Shakespeare and is provided in a structured format for easy consumption by developers. Currently it only runs on localhost, we are looking into hosting this API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22361139",
+    "_collection_link": "https://cloudy-astronaut-342785.postman.co/workspace/03290aff-1466-4733-8556-9e720a2b747e/collection/22361139-3ec8abdd-27a7-4c2b-aebb-b3532641b8b7?action=share&creator=22361139&source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Chapters",
+      "item": [
+        {
+          "name": "/chapters",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"chapters_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/chapters/",
+              "host": ["{{host}}"],
+              "path": ["chapters", ""]
+            },
+            "description": "Get all"
+          },
+          "response": []
+        },
+        {
+          "name": "/chapters/:chapterId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"chapter_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/chapters/24909",
+              "host": ["{{host}}"],
+              "path": ["chapters", "24909"]
+            },
+            "description": "Get by chapterId"
+          },
+          "response": []
+        }
+      ],
+      "description": "Access all the chapters of the works of Shakespeare.",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [""]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Characters",
+      "item": [
+        {
+          "name": "/characters",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"characters_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/characters",
+              "host": ["{{host}}"],
+              "path": ["characters"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "macbeth",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all with optional name query parameter"
+          },
+          "response": []
+        },
+        {
+          "name": "/characters/:charId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"character_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/characters/1player-ham",
+              "host": ["{{host}}"],
+              "path": ["characters", "1player-ham"]
+            },
+            "description": "Get by charId"
+          },
+          "response": []
+        }
+      ],
+      "description": "Access all the characters of the works of Shakespeare."
+    },
+    {
+      "name": "Paragraphs",
+      "item": [
+        {
+          "name": "/paragraphs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"paragraphs_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/paragraphs",
+              "host": ["{{host}}"],
+              "path": ["paragraphs"],
+              "query": [
+                {
+                  "key": "term",
+                  "value": "angel shall",
+                  "disabled": true
+                },
+                {
+                  "key": "workId",
+                  "value": "macbeth",
+                  "disabled": true
+                },
+                {
+                  "key": "charId",
+                  "value": "Countess-aw",
+                  "disabled": true
+                },
+                {
+                  "key": "workInfo",
+                  "value": "blarg",
+                  "disabled": true
+                },
+                {
+                  "key": "term",
+                  "value": "outrageous fortune",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This is the endpoint you should use if you want to return the paragraph containing any words or phrases. Note you can include as many words or phrases as you like by adding extra terms. This matches by the whole word or phrase. You can also return all the paragraphs by workId or charId. All of these endpoint paragraphs can optionally include the details about the work by including the workInfo=true parameter, if workInfo is set to false , or isn't included, the work info will not be included. It's currently in beta and functionality will be extended in v2."
+          },
+          "response": []
+        },
+        {
+          "name": "/paragraphs/:paragraphId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"paragraph_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/paragraphs/859870",
+              "host": ["{{host}}"],
+              "path": ["paragraphs", "859870"]
+            },
+            "description": "Get paragraph by paragraphId"
+          },
+          "response": []
+        }
+      ],
+      "description": "Access all the paragraphs of the works of Shakespeare."
+    },
+    {
+      "name": "Genres",
+      "item": [
+        {
+          "name": "/genres",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"genres_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/genres",
+              "host": ["{{host}}"],
+              "path": ["genres"],
+              "query": [
+                {
+                  "key": "genreName",
+                  "value": "comedy",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all genres and their genreTypes. with optiona; genreName parameter to return genreType. genreName can be one of the following: comedy, history, tragedy, sonnet or poem."
+          },
+          "response": []
+        },
+        {
+          "name": "/genres/:genreType",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"genre_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/genres/c",
+              "host": ["{{host}}"],
+              "path": ["genres", "c"]
+            },
+            "description": "Get a genreName by genreType"
+          },
+          "response": []
+        }
+      ],
+      "description": "Access all the genres of the works of Shakespeare, this functionality will be reassessed in v2."
+    },
+    {
+      "name": "Quotations",
+      "item": [
+        {
+          "name": "/quotations",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"quotations_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/quotations",
+              "host": ["{{host}}"],
+              "path": ["quotations"],
+              "query": [
+                {
+                  "key": "work",
+                  "value": "macbeth",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all quotations or get quotations by work. Note that work is slightly different here, it is not workId it is the name of the actual work i.e. \"The Tempest\". It allows for upper or lower case searching"
+          },
+          "response": []
+        },
+        {
+          "name": "/quotations/:quotationId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"quotation_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/quotations/34084923",
+              "host": ["{{host}}"],
+              "path": ["quotations", "34084923"]
+            },
+            "description": "Get a quotation by quotationId"
+          },
+          "response": []
+        }
+      ],
+      "description": "Get a list of quotations for the works of Shakespeare"
+    },
+    {
+      "name": "Wordforms",
+      "item": [
+        {
+          "name": "/wordforms",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"wordforms_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/wordforms",
+              "host": ["{{host}}"],
+              "path": ["wordforms"]
+            },
+            "description": "Get all word forms"
+          },
+          "response": []
+        },
+        {
+          "name": "/wordforms/:wordformId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"wordform_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/wordforms/763487",
+              "host": ["{{host}}"],
+              "path": ["wordforms", "763487"]
+            },
+            "description": "Get word form by wordFormId."
+          },
+          "response": []
+        }
+      ],
+      "description": "Get a list of the most common word forms in the works of Shakespeare."
+    },
+    {
+      "name": "Works",
+      "item": [
+        {
+          "name": "/works",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"works_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/works?genre=tragedy&title=an&date=1606",
+              "host": ["{{host}}"],
+              "path": ["works"],
+              "query": [
+                {
+                  "key": "genre",
+                  "value": "tragedy"
+                },
+                {
+                  "key": "title",
+                  "value": "an"
+                },
+                {
+                  "key": "date",
+                  "value": "1606"
+                }
+              ]
+            },
+            "description": "Get a list of all of the works, this can be sorted by genre, title as all or part of the title, or date as a year."
+          },
+          "response": []
+        },
+        {
+          "name": "/works/:workId",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const schema = JSON.parse(pm.variables.get(\"work_schema\"));\r",
+                  "\r",
+                  "pm.test(\"Has valid schema\", () => {\r",
+                  "    pm.response.to.have.jsonSchema(schema);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{host}}/works/allswell",
+              "host": ["{{host}}"],
+              "path": ["works", "allswell"],
+              "query": [
+                {
+                  "key": "paragraphs",
+                  "value": "true",
+                  "disabled": true
+                },
+                {
+                  "key": "chapters",
+                  "value": "false",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get work by work id. This takes the optional query params of chapters (returns the work with all the chapters) and/or paragraphs (returns all of the paragraphs of the work). If paragraphs and chapters are false or not present they will not be returned."
+          },
+          "response": []
+        }
+      ],
+      "description": "Get a list of all of the works of Shakespeare."
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ]
 }
