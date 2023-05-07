@@ -46,13 +46,7 @@ The server will start listening on port 3000 by default. You can change the port
 
 ## API Reference
 
-This API is currently a work in progress. When the endpoints are defined I will update this part.
-
-The base endpoint is currently set at:
-
-```http
-  GET /api/v1
-```
+The documentation can be found here: [documentation](https://open-source-shakespeare.github.io/open-source-shakespeare-api/)
 
 ## License
 
