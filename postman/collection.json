@@ -1,7 +1,8 @@
 {
 	"info": {
 		"_postman_id": "3ec8abdd-27a7-4c2b-aebb-b3532641b8b7",
-		"name": "Endpoints",
+		"name": "Open Source Shakespeare API",
+		"description": "This API provides access to the works of Shakespeare, including plays, sonnets, and other works. The data is sourced from the public domain works of Shakespeare and is provided in a structured format for easy consumption by developers. Currently it only runs on localhost, we are looking into hosting this API.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "22361139",
 		"_collection_link": "https://cloudy-astronaut-342785.postman.co/workspace/03290aff-1466-4733-8556-9e720a2b747e/collection/22361139-3ec8abdd-27a7-4c2b-aebb-b3532641b8b7?action=share&creator=22361139&source=collection_link"
@@ -49,7 +50,8 @@
 								"chapters",
 								""
 							]
-						}
+						},
+						"description": "Get all"
 					},
 					"response": []
 				},
@@ -93,11 +95,13 @@
 								"chapters",
 								"24909"
 							]
-						}
+						},
+						"description": "Get by chapterId"
 					},
 					"response": []
 				}
 			],
+			"description": "Access all the chapters of the works of Shakespeare.",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -158,7 +162,8 @@
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "Get all with optional name query parameter"
 					},
 					"response": []
 				},
@@ -193,11 +198,13 @@
 								"characters",
 								"1player-ham"
 							]
-						}
+						},
+						"description": "Get by charId"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Access all the characters of the works of Shakespeare."
 		},
 		{
 			"name": "Paragraphs",
@@ -249,8 +256,8 @@
 									"disabled": true
 								},
 								{
-									"key": "work_info",
-									"value": "",
+									"key": "workInfo",
+									"value": "blarg",
 									"disabled": true
 								},
 								{
@@ -259,7 +266,8 @@
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "This is the endpoint you should use if you want to return the paragraph containing any words or phrases. Note you can include as many words or phrases as you like by adding extra terms. This matches by the whole word or phrase. You can also return all the paragraphs by workId or charId. All of these endpoint paragraphs can optionally include the details about the work by including the workInfo=true parameter, if workInfo is set to false , or isn't included, the work info will not be included. It's currently in beta and functionality will be extended in v2."
 					},
 					"response": []
 				},
@@ -292,11 +300,13 @@
 								"paragraphs",
 								"859870"
 							]
-						}
+						},
+						"description": "Get paragraph by paragraphId"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Access all the paragraphs of the works of Shakespeare."
 		},
 		{
 			"name": "Genres",
@@ -332,12 +342,13 @@
 							],
 							"query": [
 								{
-									"key": "name",
+									"key": "genreName",
 									"value": "comedy",
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "Get all genres and their genreTypes. with optiona; genreName parameter to return genreType. genreName can be one of the following: comedy, history, tragedy, sonnet or poem."
 					},
 					"response": []
 				},
@@ -372,11 +383,13 @@
 								"genres",
 								"c"
 							]
-						}
+						},
+						"description": "Get a genreName by genreType"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Access all the genres of the works of Shakespeare, this functionality will be reassessed in v2."
 		},
 		{
 			"name": "Quotations",
@@ -404,7 +417,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/quotations?work=macbeth",
+							"raw": "{{host}}/quotations",
 							"host": [
 								"{{host}}"
 							],
@@ -414,10 +427,12 @@
 							"query": [
 								{
 									"key": "work",
-									"value": "macbeth"
+									"value": "macbeth",
+									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "Get all quotations or get quotations by work. Note that work is slightly different here, it is not workId it is the name of the actual work i.e. \"The Tempest\". It allows for upper or lower case searching"
 					},
 					"response": []
 				},
@@ -450,11 +465,13 @@
 								"quotations",
 								"34084923"
 							]
-						}
+						},
+						"description": "Get a quotation by quotationId"
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Get a list of quotations for the works of Shakespeare"
 		},
 		{
 			"name": "Wordforms",
@@ -487,7 +504,8 @@
 							"path": [
 								"wordforms"
 							]
-						}
+						},
+						"description": "Get all word forms"
 					},
 					"response": []
 				},
@@ -522,11 +540,13 @@
 								"wordforms",
 								"763487"
 							]
-						}
+						},
+						"description": "Get word form by wordFormId."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Get a list of the most common word forms in the works of Shakespeare."
 		},
 		{
 			"name": "Works",
@@ -555,7 +575,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/works",
+							"raw": "{{host}}/works?genre=tragedy&title=an&date=1606",
 							"host": [
 								"{{host}}"
 							],
@@ -565,21 +585,19 @@
 							"query": [
 								{
 									"key": "genre",
-									"value": "tragedy",
-									"disabled": true
+									"value": "tragedy"
 								},
 								{
 									"key": "title",
-									"value": "an",
-									"disabled": true
+									"value": "an"
 								},
 								{
 									"key": "date",
-									"value": "1606",
-									"disabled": true
+									"value": "1606"
 								}
 							]
-						}
+						},
+						"description": "Get a list of all of the works, this can be sorted by genre, title as all or part of the title, or date as a year."
 					},
 					"response": []
 				},
@@ -616,20 +634,22 @@
 							"query": [
 								{
 									"key": "paragraphs",
-									"value": null,
+									"value": "true",
 									"disabled": true
 								},
 								{
 									"key": "chapters",
-									"value": null,
+									"value": "false",
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "Get work by work id. This takes the optional query params of chapters (returns the work with all the chapters) and/or paragraphs (returns all of the paragraphs of the work). If paragraphs and chapters are false or not present they will not be returned."
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Get a list of all of the works of Shakespeare."
 		}
 	],
 	"event": [
