@@ -4,8 +4,8 @@ import { BadRequestError } from "../util/errors";
 
 export async function handleGetWordForms(_: Request, res: Response, next: NextFunction) {
   try {
-    const wordforms = await getWordForms();
-    res.json({ data: wordforms });
+    const wordForms = await getWordForms();
+    res.json({ data: wordForms });
   } catch (e) {
     next(e);
   }
