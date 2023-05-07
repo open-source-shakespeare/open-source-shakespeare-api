@@ -46,7 +46,7 @@ The server will start listening on port 3000 by default. You can change the port
 
 ## API Reference
 
-The documentation can be found here: [documentation](https://open-source-shakespeare.github.io/open-source-shakespeare-api/)
+The documentation can be found here: [documentation](https://documenter.getpostman.com/view/22361139/2s93eYTX2b)
 
 ## License
 
