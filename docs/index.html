@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Open Source Shakespeare API</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        hljs.configure({
+            tabReplace: '    ',
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>body {
+    position: relative;
+}
+
+h1 {
+    margin-top: 5px;
+}
+
+h1, h2, h3, h4 {
+    color: #2b2b2b;
+}
+
+h2:after {
+    content: ' ';
+}
+
+h5 {
+    font-weight: bold;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    display: none;
+    position: absolute;
+    margin-left: 8px;
+}
+
+h1:hover a, h2:hover a, h3:hover a, h4:hover a, h5:hover a, h6:hover a {
+    color: #a5a5a5;
+    display: initial;
+}
+
+.nav.nav-tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tab-content {
+    padding-top: 8px;
+}
+
+.table {
+    margin-bottom: 8px;
+}
+
+pre {
+    border-radius: 0px;
+    border: none;
+}
+
+pre code {
+    margin: -9.5px;
+}
+
+.request {
+    margin-top: 12px;
+    margin-bottom: 24px;
+}
+
+.response-text-sample {
+    padding: 0px !important;
+}
+
+.response-text-sample pre {
+    margin-bottom: 0px;
+}
+
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #2b2b2b;
+    padding-top: 20px;
+}
+
+#sidebar-wrapper ul {
+    width: 250px;
+}
+
+#sidebar-wrapper ul li {
+    margin-right: 10px;
+}
+
+#sidebar-wrapper ul li a:hover {
+    background: inherit;
+    text-decoration: none;
+}
+
+#sidebar-wrapper ul li a {
+    display: block;
+    color: #ECF0F1;
+    padding: 6px 15px;
+}
+
+#sidebar-wrapper ul li ul {
+    padding-left: 25px;
+}
+
+#sidebar-wrapper ul li ul li a {
+    padding: 1px 0px;
+}
+
+#sidebar-wrapper ul li a:hover,
+#sidebar-wrapper ul li a:focus {
+    color: #e0c46c;
+    border-right: solid 1px #e0c46c;
+}
+
+#sidebar-wrapper ul li.active > a {
+    color: #e0c46c;
+    border-right: solid 3px #e0c46c;
+}
+
+#sidebar-wrapper ul li:not(.active) ul {
+    display: none;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px 15px 15px 250px;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".scrollspy">
+<div id="sidebar-wrapper">
+    <div class="scrollspy">
+    <ul id="main-menu" data-spy="affix" class="nav">
+        <li>
+            <a href="#doc-general-notes">General notes</a>
+        </li>
+        
+        <li>
+            <a href="#doc-api-detail">API detail</a>
+        </li>
+        
+        
+        
+        <li>
+            <a href="#folder-chapters">Chapters</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-chapters-chapters">/chapters</a>
+                </li>
+                
+                <li>
+                    <a href="#request-chapters-chapters-chapterid">/chapters/:chapterId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-characters">Characters</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-characters-characters">/characters</a>
+                </li>
+                
+                <li>
+                    <a href="#request-characters-characters-charid">/characters/:charId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-paragraphs">Paragraphs</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-paragraphs-paragraphs">/paragraphs</a>
+                </li>
+                
+                <li>
+                    <a href="#request-paragraphs-paragraphs-paragraphid">/paragraphs/:paragraphId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-genres">Genres</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-genres-genres">/genres</a>
+                </li>
+                
+                <li>
+                    <a href="#request-genres-genres-genretype">/genres/:genreType</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-quotations">Quotations</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-quotations-quotations">/quotations</a>
+                </li>
+                
+                <li>
+                    <a href="#request-quotations-quotations-quotationid">/quotations/:quotationId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-wordforms">Wordforms</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-wordforms-wordforms">/wordforms</a>
+                </li>
+                
+                <li>
+                    <a href="#request-wordforms-wordforms-wordformid">/wordforms/:wordformId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        
+        <li>
+            <a href="#folder-works">Works</a>
+            <ul>
+                
+                <li>
+                    <a href="#request-works-works">/works</a>
+                </li>
+                
+                <li>
+                    <a href="#request-works-works-workid">/works/:workId</a>
+                </li>
+                
+            </ul>
+        </li>
+        
+    </ul>
+</div>
+
+</div>
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Open Source Shakespeare API</h1>
+
+                <h2 id="doc-general-notes">
+                    General notes
+                    <a href="#doc-general-notes"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                <p>This API provides access to the works of Shakespeare, including plays, sonnets, and other works. The data is sourced from the public domain works of Shakespeare and is provided in a structured format for easy consumption by developers. Currently it only runs on localhost, we are looking into hosting this API.</p>
+
+
+                
+
+                <h2 id="doc-api-detail">
+                    API detail
+                    <a href="#doc-api-detail"><i class="glyphicon glyphicon-link"></i></a>
+                </h2>
+
+                
+
+
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-chapters">
+                        Chapters
+                        <a href="#folder-chapters"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Access all the chapters of the works of Shakespeare.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-chapters-chapters">
+                            /chapters
+                            <a href="#request-chapters-chapters"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get all</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-chapters-chapters-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-chapters-chapters-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-chapters-chapters-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/chapters/"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-chapters-chapters-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/chapters/ HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-chapters-chapters-chapterid">
+                            /chapters/:chapterId
+                            <a href="#request-chapters-chapters-chapterid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get by chapterId</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-chapters-chapters-chapterid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-chapters-chapters-chapterid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-chapters-chapters-chapterid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/chapters/24909"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-chapters-chapters-chapterid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/chapters/24909 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-characters">
+                        Characters
+                        <a href="#folder-characters"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Access all the characters of the works of Shakespeare.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-characters-characters">
+                            /characters
+                            <a href="#request-characters-characters"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get all with optional name query parameter</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-characters-characters-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-characters-characters-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-characters-characters-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/characters"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-characters-characters-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/characters HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-characters-characters-charid">
+                            /characters/:charId
+                            <a href="#request-characters-characters-charid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get by charId</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-characters-characters-charid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-characters-characters-charid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-characters-characters-charid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/characters/1player-ham"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-characters-characters-charid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/characters/1player-ham HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-paragraphs">
+                        Paragraphs
+                        <a href="#folder-paragraphs"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Access all the paragraphs of the works of Shakespeare.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-paragraphs-paragraphs">
+                            /paragraphs
+                            <a href="#request-paragraphs-paragraphs"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>This is the endpoint you should use if you want to return the paragraph containing any words or phrases. Note you can include as many words or phrases as you like by adding extra terms. This matches by the whole word or phrase. You can also return all the paragraphs by workId or charId. All of these endpoint paragraphs can optionally include the details about the work by including the workInfo=true parameter, if workInfo is set to false , or isn&rsquo;t included, the work info will not be included. It&rsquo;s currently in beta and functionality will be extended in v2.</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-paragraphs-paragraphs-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-paragraphs-paragraphs-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-paragraphs-paragraphs-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/paragraphs"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-paragraphs-paragraphs-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/paragraphs HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-paragraphs-paragraphs-paragraphid">
+                            /paragraphs/:paragraphId
+                            <a href="#request-paragraphs-paragraphs-paragraphid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get paragraph by paragraphId</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-paragraphs-paragraphs-paragraphid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-paragraphs-paragraphs-paragraphid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-paragraphs-paragraphs-paragraphid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/paragraphs/859870"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-paragraphs-paragraphs-paragraphid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/paragraphs/859870 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-genres">
+                        Genres
+                        <a href="#folder-genres"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Access all the genres of the works of Shakespeare, this functionality will be reassessed in v2.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-genres-genres">
+                            /genres
+                            <a href="#request-genres-genres"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get all genres and their genreTypes. with optiona; genreName parameter to return genreType. genreName can be one of the following: comedy, history, tragedy, sonnet or poem.</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-genres-genres-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-genres-genres-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-genres-genres-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/genres"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-genres-genres-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/genres HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-genres-genres-genretype">
+                            /genres/:genreType
+                            <a href="#request-genres-genres-genretype"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get a genreName by genreType</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-genres-genres-genretype-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-genres-genres-genretype-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-genres-genres-genretype-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/genres/c"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-genres-genres-genretype-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/genres/c HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-quotations">
+                        Quotations
+                        <a href="#folder-quotations"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Get a list of quotations for the works of Shakespeare</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-quotations-quotations">
+                            /quotations
+                            <a href="#request-quotations-quotations"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get all quotations or get quotations by work. Note that work is slightly different here, it is not workId it is the name of the actual work i.e. &ldquo;The Tempest&rdquo;. It allows for upper or lower case searching</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-quotations-quotations-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-quotations-quotations-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-quotations-quotations-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/quotations"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-quotations-quotations-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/quotations HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-quotations-quotations-quotationid">
+                            /quotations/:quotationId
+                            <a href="#request-quotations-quotations-quotationid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get a quotation by quotationId</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-quotations-quotations-quotationid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-quotations-quotations-quotationid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-quotations-quotations-quotationid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/quotations/34084923"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-quotations-quotations-quotationid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/quotations/34084923 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-wordforms">
+                        Wordforms
+                        <a href="#folder-wordforms"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Get a list of the most common word forms in the works of Shakespeare.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-wordforms-wordforms">
+                            /wordforms
+                            <a href="#request-wordforms-wordforms"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get all word forms</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-wordforms-wordforms-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-wordforms-wordforms-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-wordforms-wordforms-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/wordforms"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-wordforms-wordforms-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/wordforms HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-wordforms-wordforms-wordformid">
+                            /wordforms/:wordformId
+                            <a href="#request-wordforms-wordforms-wordformid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get word form by wordFormId.</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-wordforms-wordforms-wordformid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-wordforms-wordforms-wordformid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-wordforms-wordforms-wordformid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/wordforms/763487"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-wordforms-wordforms-wordformid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/wordforms/763487 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+                
+                <div class="endpoints-group">
+                    <h3 id="folder-works">
+                        Works
+                        <a href="#folder-works"><i class="glyphicon glyphicon-link"></i></a>
+                    </h3>
+
+                    <div><p>Get a list of all of the works of Shakespeare.</p>
+</div>
+
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-works-works">
+                            /works
+                            <a href="#request-works-works"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get a list of all of the works, this can be sorted by genre, title as all or part of the title, or date as a year.</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-works-works-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-works-works-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-works-works-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/works?genre=tragedy&title=an&date=1606"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-works-works-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/works?genre=tragedy&title=an&date=1606 HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+                    
+                    <div class="request">
+
+                        <h4 id="request-works-works-workid">
+                            /works/:workId
+                            <a href="#request-works-works-workid"><i class="glyphicon glyphicon-link"></i></a>
+                        </h4>
+
+                        <div><p>Get work by work id. This takes the optional query params of chapters (returns the work with all the chapters) and/or paragraphs (returns all of the paragraphs of the work). If paragraphs and chapters are false or not present they will not be returned.</p>
+</div>
+
+                        <div>
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#request-works-works-workid-example-curl" data-toggle="tab">Curl</a></li>
+                                <li role="presentation"><a href="#request-works-works-workid-example-http" data-toggle="tab">HTTP</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="request-works-works-workid-example-curl">
+                                    <pre><code class="hljs curl">curl -X GET "{{host}}/works/allswell"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="request-works-works-workid-example-http">
+                                    <pre><code class="hljs http">GET %7B%7Bhost%7D%7D/works/allswell HTTP/1.1
+Host: </code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                        <hr>
+                    </div>
+                    
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table:not(.table)").addClass('table table-bordered');
+    });
+</script>
+</body>
+</html>
