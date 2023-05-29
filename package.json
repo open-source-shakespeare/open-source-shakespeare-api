@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/morgan": "^1.9.4",
-    "@types/node": "^20.1.4",
+    "@types/node": "^20.2.5",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
     "ts-node": "^10.9.1",
