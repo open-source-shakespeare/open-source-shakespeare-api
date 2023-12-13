@@ -5,12 +5,7 @@ import { BadRequestError } from "../util/errors";
 export async function handleGetParagraphs(req: Request, res: Response, next: NextFunction) {
   try {
     const { term, workId, charId, workInfo } = req.query;
-    let parsedWorkInfo = false;
-    if ((workInfo as string).toLowerCase() === "true") {
-      parsedWorkInfo = true;
-    } else if ((workInfo as string).toLowerCase() !== "false") {
-      throw new BadRequestError("Work info should be true, false or not present.");
-    }
+    const parsedWorkInfo = typeof workInfo === "string" && (workInfo as string).toLowerCase() === "true";
     const paragraphs = await getParagraphs(
       term as string[],
       workId as string,
