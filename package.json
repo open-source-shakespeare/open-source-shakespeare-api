@@ -12,7 +12,7 @@
   "author": "mghmay",
   "license": "MIT",
   "devDependencies": {
-    "@types/express": "^4.17.17",
+    "@types/express": "^4.17.21",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.11.2",
     "nodemon": "^3.0.1",
